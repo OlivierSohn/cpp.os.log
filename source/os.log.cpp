@@ -24,18 +24,22 @@ int toAndroid(logLevel i)
 void LG(logLevel level, /*const char* sModule,*/ const char * txt)
 {
 #ifdef __ANDROID__
+#ifndef NDEBUG
     __android_log_write( toAndroid(level), LOG_TAG, txt);
+#endif
 #endif
 }
 
 void LG(logLevel level, /*const char* sModule,*/ const char * format, ...)
 {
 #ifdef __ANDROID__
+#ifndef NDEBUG
     va_list args;
 
     va_start(args, format);
     __android_log_vprint(toAndroid(level), LOG_TAG, format, args);
     va_end(args);
+#endif
 #endif
 }
 
