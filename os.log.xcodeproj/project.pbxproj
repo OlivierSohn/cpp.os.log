@@ -161,7 +161,7 @@
 		09C559E019C8008600879A96 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Olivier;
 			};
 			buildConfigurationList = 09C559E319C8008600879A96 /* Build configuration list for PBXProject "os.log" */;
@@ -276,6 +276,7 @@
 		09C559ED19C8008700879A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -284,6 +285,7 @@
 		09C559EE19C8008700879A96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
