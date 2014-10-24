@@ -1,4 +1,5 @@
 #include "os.log.h"
+#include <iostream>
 
 #define LOG_TAG "Grid3D"
 
@@ -30,6 +31,8 @@ void LG(logLevel level, /*const char* sModule,*/ const char * txt)
 #endif
 }
 
+const char * levelToChar(logLevel level);
+
 void LG(logLevel level, /*const char* sModule,*/ const char * format, ...)
 {
 #ifdef __ANDROID__
@@ -40,9 +43,32 @@ void LG(logLevel level, /*const char* sModule,*/ const char * format, ...)
     __android_log_vprint(toAndroid(level), LOG_TAG, format, args);
     va_end(args);
 #endif
+#else
+    fprintf(((level==ERR)?stderr : stdout), levelToChar(level));
+
+    va_list args;
+
+    va_start(args, format);
+    vfprintf(((level == ERR) ? stderr : stdout), format, args);
+    va_end(args);
+
+    fprintf(((level == ERR) ? stderr : stdout), "\n");
 #endif
 }
 
+const char * levelToChar(logLevel level)
+{
+    switch (level)
+    {
+    default:
+    case INFO:
+        return "INFO|";
+    case ERR:
+        return "ERR|";
+    case WARN:
+        return "WARN|";
+    }
+}
 // FOR LATER:
 /*
 #ifdef ANDROID
