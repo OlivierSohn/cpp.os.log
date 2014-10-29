@@ -13,6 +13,9 @@
 		09C55A2419C801E400879A96 /* os.log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09C55A1D19C801E400879A96 /* os.log.cpp */; };
 		09C55A2519C801E400879A96 /* os.log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09C55A1D19C801E400879A96 /* os.log.cpp */; };
 		09C55A2C19C801F500879A96 /* os.log.h in Headers */ = {isa = PBXBuildFile; fileRef = 09C55A2B19C801F500879A96 /* os.log.h */; };
+		09C6C6D01A01883E003ECAB4 /* os.log.format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09C6C6CF1A01883E003ECAB4 /* os.log.format.cpp */; };
+		09C6C6D11A01883E003ECAB4 /* os.log.format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09C6C6CF1A01883E003ECAB4 /* os.log.format.cpp */; };
+		09C6C6D31A018849003ECAB4 /* os.log.format.h in Headers */ = {isa = PBXBuildFile; fileRef = 09C6C6D21A018849003ECAB4 /* os.log.format.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +40,8 @@
 		09C55A1C19C801E400879A96 /* os.log.allincludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.allincludes.h; sourceTree = "<group>"; };
 		09C55A1D19C801E400879A96 /* os.log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.cpp; sourceTree = "<group>"; };
 		09C55A2B19C801F500879A96 /* os.log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.h; sourceTree = "<group>"; };
+		09C6C6CF1A01883E003ECAB4 /* os.log.format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.format.cpp; sourceTree = "<group>"; };
+		09C6C6D21A018849003ECAB4 /* os.log.format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.format.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +95,7 @@
 		09C55A1A19C801E400879A96 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				09C6C6CF1A01883E003ECAB4 /* os.log.format.cpp */,
 				09C55A1B19C801E400879A96 /* os.log-Prefix.pch */,
 				09C55A1C19C801E400879A96 /* os.log.allincludes.h */,
 				09C55A1D19C801E400879A96 /* os.log.cpp */,
@@ -100,6 +106,7 @@
 		09C55A2A19C801F500879A96 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				09C6C6D21A018849003ECAB4 /* os.log.format.h */,
 				09C55A2B19C801F500879A96 /* os.log.h */,
 			);
 			path = include;
@@ -114,6 +121,7 @@
 			files = (
 				09C55A2319C801E400879A96 /* os.log.allincludes.h in Headers */,
 				09C55A2219C801E400879A96 /* os.log-Prefix.pch in Headers */,
+				09C6C6D31A018849003ECAB4 /* os.log.format.h in Headers */,
 				09C55A2C19C801F500879A96 /* os.log.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09C55A2419C801E400879A96 /* os.log.cpp in Sources */,
+				09C6C6D01A01883E003ECAB4 /* os.log.format.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09C55A2519C801E400879A96 /* os.log.cpp in Sources */,
+				09C6C6D11A01883E003ECAB4 /* os.log.format.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +244,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(PROJECT_DIR)/../thirdparty/cppformat-0.10.0\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -268,6 +283,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(PROJECT_DIR)/../thirdparty/cppformat-0.10.0\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 			};
