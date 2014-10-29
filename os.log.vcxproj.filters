@@ -44,5 +44,8 @@
     <ClCompile Include="source\win32\stdafx.cpp">
       <Filter>Source Files\win32</Filter>
     </ClCompile>
+    <ClCompile Include="source\os.log.format.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

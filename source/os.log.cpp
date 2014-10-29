@@ -40,6 +40,7 @@ void LG(logLevel level, /*const char* sModule,*/ const char * format, ...)
     //if( level == INFO)
     //    return;
 #endif
+    // deactivated logs to investigate crash on dll loading
     va_list args;
 
     va_start(args, format);
