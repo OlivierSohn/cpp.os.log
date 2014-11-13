@@ -20,16 +20,22 @@ void FormatDate(tm*time, std::string&oDate)
         fmt::FormatInt sMinute(time->tm_min);
         fmt::FormatInt sSecond(time->tm_sec);
 
-        if (day < 10)
-            oDate.append(sZero.c_str());
-        oDate.append(sDay.c_str());
+        oDate.append(sYear.c_str());
+
         oDate.append("/");
+
         if (month < 10)
             oDate.append(sZero.c_str());
         oDate.append(sMonth.c_str());
+
         oDate.append("/");
-        oDate.append(sYear.c_str());
+
+        if (day < 10)
+            oDate.append(sZero.c_str());
+        oDate.append(sDay.c_str());
+
         oDate.append(" ");
+
         if (time->tm_hour < 10)
             oDate.append(sZero.c_str());
         oDate.append(sHour.c_str());
@@ -47,7 +53,7 @@ void FormatDate(tm*time, std::string&oDate)
     else
     {
         LG(ERR, "FormatDate: NULL parameter time");
-        oDate.assign("../../.. ..:..:..");
+        oDate.assign("..../../.. ..:..:..");
     }
  
     LG(INFO, "FormatDate end");
