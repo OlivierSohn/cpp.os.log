@@ -3,7 +3,7 @@
 
 #define LOG_TAG "Grid3D"
 
-// TODO redirect std::out and std::err to android logging for android platform
+// TODO LOG : redirect std::out and std::err to android logging for android platform
 
 #ifdef __ANDROID__
 #include <android/log.h>
