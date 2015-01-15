@@ -5,11 +5,14 @@
 
 #pragma once
 
-#include "targetver.h"
-
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-
 #include <tchar.h>
 
+#include <ctime>
+#include <string>
 
+#ifdef __ANDROID__
+#include <android/log.h>
+#endif
+
+// this module
 #include "os.log.allincludes.h"

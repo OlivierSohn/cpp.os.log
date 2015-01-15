@@ -75,12 +75,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\os.log.format.h" />
     <ClInclude Include="include\os.log.h" />
-    <ClInclude Include="source\os.log.allincludes.h" />
+    <ClInclude Include="include\os.log.allincludes.h" />
     <ClInclude Include="source\win32\stdafx.h" />
     <ClInclude Include="source\win32\targetver.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\os.log.cpp" />
