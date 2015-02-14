@@ -4,7 +4,7 @@
 
 void FormatDate(tm*time, std::string&oDate)
 {
-    LG(INFO, "FormatDate begin");
+    //LG(INFO, "FormatDate begin");
 
     if (time)
     {
@@ -48,7 +48,7 @@ void FormatDate(tm*time, std::string&oDate)
             oDate.append(sZero.c_str());
         oDate.append(sSecond.c_str());
 
-        LG(INFO, "FormatDate: \"%s\"", oDate.c_str());
+        //LG(INFO, "FormatDate: \"%s\"", oDate.c_str());
     }
     else
     {
@@ -56,6 +56,6 @@ void FormatDate(tm*time, std::string&oDate)
         oDate.assign("..../../.. ..:..:..");
     }
  
-    LG(INFO, "FormatDate end");
+    //LG(INFO, "FormatDate end");
 }
 
