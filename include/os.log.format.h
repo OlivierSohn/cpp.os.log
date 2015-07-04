@@ -2,5 +2,14 @@
 
 #include <ctime>
 #include <string>
+#include <string>
+#include <sstream>
+#include <vector>
 
-void FormatDate(tm*time, std::string&oDate);
+namespace imajuscule
+{
+    std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
+    std::vector<std::string> split(const std::string &s, char delim);
+    
+    void FormatDate(tm*time, std::string&oDate);
+}
