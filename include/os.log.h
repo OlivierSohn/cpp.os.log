@@ -21,17 +21,11 @@ void LG(logLevel, /*const char* sModule,*/ const char * format, ...);
 #define C(x) if(!(x)) {ERR_LOG(x,Check);} else do{}while(0)
 
 /* 
-"A" is used to replace
-
-// assert(x);
-
-with
-
-// A(x);
+"A" is used to replace "assert(x)" with "A(x)"
 
 with the advantage that :
 - a comprehensive error message is logged, and the stack is available in debugger (not always the case with assert)
-- in release, code execution is not broken buit an error message is logged
+- in release, code execution is not broken but an error message is logged
 */
 
 #ifndef NDEBUG
