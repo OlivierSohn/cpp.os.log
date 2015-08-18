@@ -5,7 +5,10 @@
 #endif
 
 #include <stdarg.h>
+#include "os.log.stack.h"
 
+namespace imajuscule
+{
 typedef enum logLevel
 {
     INFO,
@@ -15,7 +18,10 @@ typedef enum logLevel
 
 void LG(logLevel, /*const char* sModule,*/ const char * format, ...);
 
-#define ERR_LOG(x,type) do{ LG(ERR, "%s (%s) failed\n   |in %s\n   |(%s,%d)", #type, #x, __func__, __FILE__, __LINE__ ); } while(0)
+#define ERR_LOG(x,type) do{ \
+LG(ERR, "%s (%s) failed\n   |in %s\n   |(%s,%d)", #type, #x, __func__, __FILE__, __LINE__ ); \
+logStack(); \
+} while(0)
 
 // "soft" Assert
 #define C(x) if(!(x)) {ERR_LOG(x,Check);} else do{}while(0)
@@ -59,3 +65,4 @@ with
 //      // user code
 //  }
 */
+}

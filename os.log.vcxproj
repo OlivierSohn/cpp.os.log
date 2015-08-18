@@ -80,12 +80,14 @@
     <ClInclude Include="include\os.log.format.h" />
     <ClInclude Include="include\os.log.h" />
     <ClInclude Include="include\os.log.allincludes.h" />
+    <ClInclude Include="include\os.log.stack.h" />
     <ClInclude Include="source\win32\stdafx.h" />
     <ClInclude Include="source\win32\targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\os.log.cpp" />
     <ClCompile Include="source\os.log.format.cpp" />
+    <ClCompile Include="source\os.log.stack.cpp" />
     <ClCompile Include="source\win32\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

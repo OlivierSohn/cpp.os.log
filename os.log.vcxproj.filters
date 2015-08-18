@@ -33,6 +33,9 @@
     <ClInclude Include="include\os.log.allincludes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\os.log.stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\os.log.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files\win32</Filter>
     </ClCompile>
     <ClCompile Include="source\os.log.format.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\os.log.stack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
