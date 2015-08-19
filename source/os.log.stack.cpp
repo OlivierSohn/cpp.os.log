@@ -21,7 +21,16 @@
 #define FILE_SEPARATOR "/"
 #endif
 
+#include <execinfo.h>
+#include <cxxabi.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
 #endif
+
+#include "os.log.h"
+#include <string>
 
 #ifdef FILE_PATH_PATTERN
 #error 0
@@ -123,26 +132,83 @@ void logStack()
 	}
 
 #else
-
-	const Integer SIZE = 100;
-	void *buffer[SIZE];
-	char **strings;
-
-	int nStrings = backtrace(buffer, SIZE);
-
-	strings = backtrace_symbols(buffer, nStrings);
-	if (!strings)
-	{
-		LG(ERR,"logStack: backtrace_symbols returned NULL");
-		return;
-	}
-
-	for (auto s = 1/*skip current method*/; s < nStrings; ++s)
-	{
-		LG(INFO,"%s", strings[s]);
-	}
-
-	free(strings);
+    
+    const int max_frames(100);
+    
+    // storage array for stack trace address data
+    void* addrlist[max_frames+1];
+    
+    // retrieve current stack addresses
+    int addrlen = backtrace(addrlist, sizeof(addrlist) / sizeof(void*));
+    if (!addrlen)
+    {
+        LG(ERR,"logStack: backtrace_symbols returned NULL");
+        return;
+    }
+    
+    if (addrlen == 0) {
+        LG(ERR,"logStack: trace empty, possibly corrupt");
+        return;
+    }
+    
+    // resolve addresses into strings containing "filename(function+address)",
+    // this array must be free()-ed
+    char** symbollist = backtrace_symbols(addrlist, addrlen);
+    
+    // allocate string which will be filled with the demangled function name
+    size_t funcnamesize = 1024;
+    char* funcname = (char*)malloc(funcnamesize);
+    
+    // iterate over the returned symbol lines. skip the first, it is the
+    // address of this function.
+    for (int i = 1; i < addrlen; i++)
+    {
+        std::string trace(symbollist[i]);
+        
+        // parse trace to find symbol, unmangle it
+        std::string::size_type loc_ox = trace.find_first_of("0x");
+        if(loc_ox != std::string::npos)
+        {
+            std::string::size_type loc_space = trace.find_first_of(" ", loc_ox);
+            if(loc_space != std::string::npos)
+            {
+                loc_space++;
+                std::string::size_type loc_space2 = trace.find_first_of(" ", loc_space);
+                if(loc_space2 != std::string::npos)
+                {
+                    std::string subTrace = trace.substr(loc_space, loc_space2 - loc_space);
+                    size_t maxName = 256;
+                    int demangleStatus;
+                    
+                    char* demangledName = (char*) malloc(maxName);
+                    if ((demangledName = abi::__cxa_demangle(subTrace.c_str(), demangledName, &maxName, &demangleStatus)) && demangleStatus == 0)
+                    {
+                        subTrace = demangledName;
+                        
+                        std::string s = "imajuscule::";
+                        
+                        bool bGoOn(false);
+                        do
+                        {
+                            std::string::size_type i = subTrace.find(s);
+                            bGoOn = (i != std::string::npos);
+                            if(bGoOn)
+                                subTrace.erase(i, s.length());
+                        }
+                        while(bGoOn);
+                        
+                        trace.replace(loc_space, loc_space2 - loc_space, subTrace);
+                    }
+                    free(demangledName);
+                }
+            }
+        }
+        
+        LG(INFO, "%s", trace.c_str());
+    }
+    
+    free(funcname);
+    free(symbollist);
 
 #endif
 

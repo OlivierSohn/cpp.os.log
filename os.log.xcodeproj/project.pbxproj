@@ -16,6 +16,9 @@
 		097663FC1AD35C5A0099DA54 /* os.log.format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 097663F11AD35C5A0099DA54 /* os.log.format.cpp */; };
 		097663FD1AD35C5A0099DA54 /* os.log.format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 097663F11AD35C5A0099DA54 /* os.log.format.cpp */; };
 		09C559F619C800F200879A96 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C559F519C800F200879A96 /* Foundation.framework */; };
+		09F01F691B83140D000DEA13 /* os.log.stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F01F681B83140D000DEA13 /* os.log.stack.cpp */; };
+		09F01F6A1B83140D000DEA13 /* os.log.stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F01F681B83140D000DEA13 /* os.log.stack.cpp */; };
+		09F01F6C1B831417000DEA13 /* os.log.stack.h in Headers */ = {isa = PBXBuildFile; fileRef = 09F01F6B1B831417000DEA13 /* os.log.stack.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +45,8 @@
 		09C559F519C800F200879A96 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09C55A0319C800F300879A96 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		09C55A0619C800F300879A96 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		09F01F681B83140D000DEA13 /* os.log.stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.stack.cpp; sourceTree = "<group>"; };
+		09F01F6B1B831417000DEA13 /* os.log.stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.stack.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +71,7 @@
 		097663EA1AD35C5A0099DA54 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				09F01F6B1B831417000DEA13 /* os.log.stack.h */,
 				097663EB1AD35C5A0099DA54 /* os.log.allincludes.h */,
 				097663EC1AD35C5A0099DA54 /* os.log.format.h */,
 				097663ED1AD35C5A0099DA54 /* os.log.h */,
@@ -76,6 +82,7 @@
 		097663EE1AD35C5A0099DA54 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				09F01F681B83140D000DEA13 /* os.log.stack.cpp */,
 				097663EF1AD35C5A0099DA54 /* os.log-Prefix.pch */,
 				097663F01AD35C5A0099DA54 /* os.log.cpp */,
 				097663F11AD35C5A0099DA54 /* os.log.format.cpp */,
@@ -122,6 +129,7 @@
 				097663F71AD35C5A0099DA54 /* os.log.format.h in Headers */,
 				097663F61AD35C5A0099DA54 /* os.log.allincludes.h in Headers */,
 				097663F81AD35C5A0099DA54 /* os.log.h in Headers */,
+				09F01F6C1B831417000DEA13 /* os.log.stack.h in Headers */,
 				097663F91AD35C5A0099DA54 /* os.log-Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F01F691B83140D000DEA13 /* os.log.stack.cpp in Sources */,
 				097663FA1AD35C5A0099DA54 /* os.log.cpp in Sources */,
 				097663FC1AD35C5A0099DA54 /* os.log.format.cpp in Sources */,
 			);
@@ -204,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F01F6A1B83140D000DEA13 /* os.log.stack.cpp in Sources */,
 				097663FB1AD35C5A0099DA54 /* os.log.cpp in Sources */,
 				097663FD1AD35C5A0099DA54 /* os.log.format.cpp in Sources */,
 			);
