@@ -40,6 +40,20 @@
 
 namespace imajuscule
 {
+	void simplifySymbol(std::string & subTrace)
+	{
+		std::string s = "imajuscule::";
+
+		bool bGoOn(false);
+		do
+		{
+			std::string::size_type i = subTrace.find(s);
+			bGoOn = (i != std::string::npos);
+			if (bGoOn)
+				subTrace.erase(i, s.length());
+		} while (bGoOn);
+	}
+
 void logStack()
 {
 	const char * line =   "   o___.__o______o_____._______________o___o_____._________o_o______._o__._________o_.______.___o_o";
@@ -75,8 +89,13 @@ void logStack()
 	symbol->MaxNameLen = TRACE_MAX_FUNCTION_NAME_LENGTH;
 	symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
 	DWORD displacement;
+#ifdef _WIN64
 	IMAGEHLP_LINE64 *Line = (IMAGEHLP_LINE64 *)malloc(sizeof(IMAGEHLP_LINE64));
 	Line->SizeOfStruct = sizeof(IMAGEHLP_LINE64);
+#else
+	IMAGEHLP_LINE *Line = (IMAGEHLP_LINE *)malloc(sizeof(IMAGEHLP_LINE));
+	Line->SizeOfStruct = sizeof(IMAGEHLP_LINE);
+#endif
 
 	char * id = FILE_PATH_PATTERN;
 
@@ -86,9 +105,19 @@ void logStack()
 	const int sizeFileMax = 50;
 	for (int i = 0; i < numberOfFrames; i++)
 	{
+#ifdef _WIN64
 		DWORD64 address = (DWORD64)(stack[i]);
+#else
+		DWORD64 address = (DWORD64)(stack[i]);
+#endif
 		SymFromAddr(process, address, NULL, symbol);
-		if (SymGetLineFromAddr64(process, address, &displacement, Line))
+		if (
+#ifdef _WIN64
+			SymGetLineFromAddr64
+#else
+			SymGetLineFromAddr
+#endif		
+			(process, address, &displacement, Line))
 		{
 			char * file = Line->FileName;
 			if (char* token = strstr(Line->FileName, id))
@@ -98,30 +127,44 @@ void logStack()
 			if (locSizeFile <= sizeFileMax)
 				sizeFile = std::max(sizeFile, locSizeFile);
 		}
-		int locSizeSymbol = strlen(symbol->Name);
+		std::string subTrace = symbol->Name;
+		simplifySymbol(subTrace);
+		int locSizeSymbol = subTrace.size();
 		if(locSizeSymbol <= sizeSymbolMax)
 			sizeSymbol = std::max(sizeSymbol, locSizeSymbol);
 	}
 
 	for (int i = 1/*skip current method*/; i < numberOfFrames; i++)
 	{
+#ifdef _WIN64
 		DWORD64 address = (DWORD64)(stack[i]);
+#else
+		DWORD64 address = (DWORD64)(stack[i]);
+#endif		
 		SymFromAddr(process, address, NULL, symbol);
-		if (SymGetLineFromAddr64(process, address, &displacement, Line))
+		if (
+#ifdef _WIN64
+			SymGetLineFromAddr64
+#else
+			SymGetLineFromAddr
+#endif		
+			(process, address, &displacement, Line))
 		{
 			char * file = Line->FileName;
 			if (char* token = strstr(Line->FileName, id))
 				file = token + strlen(id);
 
+			std::string subTrace = symbol->Name;
+			simplifySymbol(subTrace);
+
 			int place, place2;
-			LG(INFO, "%#16I64x%n|%-*s%s%n|%-*s%s|%lu", 
+			LG(INFO, "%#16I64x%n|%-*s%s%n|%-*s (%lu)", 
 				symbol->Address, 
 				&place, 
-				sizeSymbol, symbol->Name,
-				(strlen(symbol->Name) <= sizeSymbolMax) ? "" : ("\n" + std::string(place + sizeSymbol + 1 + 5, ' ')).c_str(),
+				sizeSymbol, subTrace.c_str(),
+				(subTrace.size() <= sizeSymbolMax) ? "" : ("\n" + std::string(place + sizeSymbol + 1 + 5, ' ')).c_str(),
 				&place2,
 				sizeFile, file,
-				(strlen(file) <= sizeFileMax) ? "" : ("\n" + std::string(place2 + sizeFile + 1 + 5, ' ')).c_str(),
 				Line->LineNumber);
 		}
 		else
@@ -185,18 +228,8 @@ void logStack()
                     {
                         subTrace = demangledName;
                         
-                        std::string s = "imajuscule::";
-                        
-                        bool bGoOn(false);
-                        do
-                        {
-                            std::string::size_type i = subTrace.find(s);
-                            bGoOn = (i != std::string::npos);
-                            if(bGoOn)
-                                subTrace.erase(i, s.length());
-                        }
-                        while(bGoOn);
-                        
+						simplifySymbol(subTrace);
+
                         trace.replace(loc_space, loc_space2 - loc_space, subTrace);
                     }
                     free(demangledName);
