@@ -108,7 +108,7 @@ void logStack()
 #ifdef _WIN64
 		DWORD64 address = (DWORD64)(stack[i]);
 #else
-		DWORD64 address = (DWORD64)(stack[i]);
+		DWORD address = (DWORD)(stack[i]);
 #endif
 		SymFromAddr(process, address, NULL, symbol);
 		if (
@@ -139,7 +139,7 @@ void logStack()
 #ifdef _WIN64
 		DWORD64 address = (DWORD64)(stack[i]);
 #else
-		DWORD64 address = (DWORD64)(stack[i]);
+		DWORD address = (DWORD)(stack[i]);
 #endif		
 		SymFromAddr(process, address, NULL, symbol);
 		if (
