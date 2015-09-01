@@ -12,4 +12,5 @@ namespace imajuscule
     std::vector<std::string> split(const std::string &s, char delim);
     
     void FormatDate(tm*time, std::string&oDate);
+    bool iequals(const std::string& a, const std::string& b);
 }
