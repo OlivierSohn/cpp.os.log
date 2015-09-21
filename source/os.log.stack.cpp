@@ -157,15 +157,18 @@ void logStack()
 			std::string subTrace = symbol->Name;
 			simplifySymbol(subTrace);
 
-			int place, place2;
-			LG(INFO, "%#16I64x%n|%-*s%s%n|%-*s (%lu)", 
-				symbol->Address, 
-				&place, 
-				sizeSymbol, subTrace.c_str(),
-				(subTrace.size() <= sizeSymbolMax) ? "" : ("\n" + std::string(place + sizeSymbol + 1 + 5, ' ')).c_str(),
-				&place2,
-				sizeFile, file,
-				Line->LineNumber);
+            const bool bSameLine = (subTrace.size() <= sizeSymbolMax);
+            const char * hundredSpaces = "                                                                                                  ";
+            const int nSpaces = bSameLine ? 0 : (2 + 4 /*INFO*/+ 16 + sizeSymbol);
+
+            LG(INFO, "%0#16I64X|%-*s%s%.*s|%s (%lu)",
+                symbol->Address,
+                sizeSymbol, subTrace.c_str(),
+                bSameLine ? "" : "\n",
+                nSpaces,
+                hundredSpaces,
+                file,
+                Line->LineNumber);
 		}
 		else
 		{
