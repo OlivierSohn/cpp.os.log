@@ -42,7 +42,11 @@ with the advantage that :
 
 #define ASSERT_ERR_LOG(x) ERR_LOG(x,Assertion)
 #define ASSERT_ERR(x) do{ASSERT_ERR_LOG(x); ASSERT_THROW;}while(0)
-#define if_A(x) if(!(x)) ASSERT_ERR(x); else
+
+#define likely(x)      __builtin_expect(!!(x), 1)
+#define unlikely(x)    __builtin_expect(!!(x), 0)
+    
+#define if_A(x) if(unlikely(!(x))) ASSERT_ERR(x); else
 #define A(x) if_A(x) do{}while(0)
 
 /* 
