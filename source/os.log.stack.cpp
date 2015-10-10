@@ -186,13 +186,13 @@ void logStack()
     
     // retrieve current stack addresses
     int addrlen = backtrace(addrlist, sizeof(addrlist) / sizeof(void*));
-    if (!addrlen)
+    if ( unlikely(!addrlen))
     {
         LG(ERR,"logStack: backtrace_symbols returned NULL");
         return;
     }
     
-    if (addrlen == 0) {
+    if ( unlikely(addrlen == 0)) {
         LG(ERR,"logStack: trace empty, possibly corrupt");
         return;
     }

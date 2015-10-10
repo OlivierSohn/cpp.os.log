@@ -7,7 +7,7 @@ namespace imajuscule
     {
         //LG(INFO, "FormatDate begin");
         
-        if (time)
+        if (likely(time))
         {
             int zero = 0;
             int day = time->tm_mday;
