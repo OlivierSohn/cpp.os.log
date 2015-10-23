@@ -52,7 +52,11 @@ with the advantage that :
 #endif
 
 #define if_A(x) if(unlikely(!(x))) ASSERT_ERR(x); else
-#define A(x) if_A(x) do{}while(0)
+template<class T>
+void A(T x)
+{
+    if_A(x) do {} while ( 0 );
+}
 
 /* 
 "if_A" is used to replace 
