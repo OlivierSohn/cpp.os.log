@@ -1,4 +1,3 @@
-#include "format.h"
 #include "os.log.format.h"
 #include "os.log.h"
 namespace imajuscule
@@ -13,13 +12,13 @@ namespace imajuscule
             int day = time->tm_mday;
             int month = time->tm_mon + 1;
             int year = time->tm_year + 1900;
-            fmt::FormatInt sZero(zero);
-            fmt::FormatInt sDay(day);
-            fmt::FormatInt sMonth(month);
-            fmt::FormatInt sYear(year);
-            fmt::FormatInt sHour(time->tm_hour);
-            fmt::FormatInt sMinute(time->tm_min);
-            fmt::FormatInt sSecond(time->tm_sec);
+            auto sZero = std::to_string(zero);
+            auto sDay = std::to_string(day);
+            auto sMonth = std::to_string(month);
+            auto sYear = std::to_string(year);
+            auto sHour = std::to_string(time->tm_hour);
+            auto sMinute = std::to_string(time->tm_min);
+            auto sSecond = std::to_string(time->tm_sec);
             
             oDate.append(sYear.c_str());
             
