@@ -4,8 +4,6 @@ namespace imajuscule
 {
     void FormatDate(tm*time, std::string&oDate)
     {
-        //LG(INFO, "FormatDate begin");
-        
         if (likely(time))
         {
             int zero = 0;
@@ -47,16 +45,12 @@ namespace imajuscule
             if (time->tm_sec < 10)
                 oDate.append(sZero.c_str());
             oDate.append(sSecond.c_str());
-            
-            //LG(INFO, "FormatDate: \"%s\"", oDate.c_str());
         }
         else
         {
             LG(ERR, "FormatDate: NULL parameter time");
             oDate.assign("..../../.. ..:..:..");
         }
-        
-        //LG(INFO, "FormatDate end");
     }
     
     std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
