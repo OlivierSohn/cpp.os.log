@@ -15,7 +15,6 @@
 		097663FB1AD35C5A0099DA54 /* os.log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 097663F01AD35C5A0099DA54 /* os.log.cpp */; };
 		097663FC1AD35C5A0099DA54 /* os.log.format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 097663F11AD35C5A0099DA54 /* os.log.format.cpp */; };
 		097663FD1AD35C5A0099DA54 /* os.log.format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 097663F11AD35C5A0099DA54 /* os.log.format.cpp */; };
-		09C559F619C800F200879A96 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C559F519C800F200879A96 /* Foundation.framework */; };
 		09F01F691B83140D000DEA13 /* os.log.stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F01F681B83140D000DEA13 /* os.log.stack.cpp */; };
 		09F01F6A1B83140D000DEA13 /* os.log.stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F01F681B83140D000DEA13 /* os.log.stack.cpp */; };
 		09F01F6C1B831417000DEA13 /* os.log.stack.h in Headers */ = {isa = PBXBuildFile; fileRef = 09F01F6B1B831417000DEA13 /* os.log.stack.h */; };
@@ -61,7 +60,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09C559F619C800F200879A96 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
