@@ -51,12 +51,17 @@ with the advantage that :
 #define unlikely(x)    __builtin_expect(!!(x), 0)
 #endif
 
+#ifndef NDEBUG
 #define if_A(x) if(unlikely(!(x))) ASSERT_ERR(x); else
-template<class T>
-void A(T x)
-{
-    if_A(x) do {} while ( 0 );
-}
+#else
+#define if_A(x)
+#endif
+
+#ifndef NDEBUG
+#define A(x) if_A(x) do {} while ( 0 )
+#else
+#define A(x) do {} while ( 0 )
+#endif
 
 /* 
 "if_A" is used to replace 
