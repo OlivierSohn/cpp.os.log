@@ -89,4 +89,10 @@ with
     {
         LG(INFO, "%s %f %f %f", message, coords[0], coords[1], coords[2]);
     }
+    
+    template <class T>
+    void logQuaternion(const char * message, const T & coords)
+    {
+        LG(INFO, "%s %f %f %f %f", message, coords[0], coords[1], coords[2], coords[3]);
+    }
 }
