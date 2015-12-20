@@ -44,6 +44,15 @@
 		09C559F519C800F200879A96 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09C55A0319C800F300879A96 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		09C55A0619C800F300879A96 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		09C84A581C271DB2002CF5B7 /* os.log.Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = os.log.Debug.xcconfig; sourceTree = "<group>"; };
+		09C84A591C271DB2002CF5B7 /* os.log.ios.Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = os.log.ios.Debug.xcconfig; sourceTree = "<group>"; };
+		09C84A5A1C271DB2002CF5B7 /* os.log.ios.Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = os.log.ios.Release.xcconfig; sourceTree = "<group>"; };
+		09C84A5B1C271DB2002CF5B7 /* os.log.ios.Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = os.log.ios.Shared.xcconfig; sourceTree = "<group>"; };
+		09C84A5C1C271DB2002CF5B7 /* os.log.Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = os.log.Release.xcconfig; sourceTree = "<group>"; };
+		09C84A5D1C271DB2002CF5B7 /* os.log.Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = os.log.Shared.xcconfig; sourceTree = "<group>"; };
+		09C84A5E1C271DB2002CF5B7 /* Project.Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.Debug.xcconfig; sourceTree = "<group>"; };
+		09C84A5F1C271DB2002CF5B7 /* Project.Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.Release.xcconfig; sourceTree = "<group>"; };
+		09C84A601C271DB2002CF5B7 /* Project.Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.Shared.xcconfig; sourceTree = "<group>"; };
 		09F01F681B83140D000DEA13 /* os.log.stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.stack.cpp; sourceTree = "<group>"; };
 		09F01F6B1B831417000DEA13 /* os.log.stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.stack.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +100,7 @@
 		09C559DF19C8008600879A96 = {
 			isa = PBXGroup;
 			children = (
+				09C84A571C271DB2002CF5B7 /* xcode.config */,
 				097663EA1AD35C5A0099DA54 /* include */,
 				097663EE1AD35C5A0099DA54 /* source */,
 				09C559F419C800F200879A96 /* Frameworks */,
@@ -115,6 +125,22 @@
 				09C55A0619C800F300879A96 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		09C84A571C271DB2002CF5B7 /* xcode.config */ = {
+			isa = PBXGroup;
+			children = (
+				09C84A581C271DB2002CF5B7 /* os.log.Debug.xcconfig */,
+				09C84A591C271DB2002CF5B7 /* os.log.ios.Debug.xcconfig */,
+				09C84A5A1C271DB2002CF5B7 /* os.log.ios.Release.xcconfig */,
+				09C84A5B1C271DB2002CF5B7 /* os.log.ios.Shared.xcconfig */,
+				09C84A5C1C271DB2002CF5B7 /* os.log.Release.xcconfig */,
+				09C84A5D1C271DB2002CF5B7 /* os.log.Shared.xcconfig */,
+				09C84A5E1C271DB2002CF5B7 /* Project.Debug.xcconfig */,
+				09C84A5F1C271DB2002CF5B7 /* Project.Release.xcconfig */,
+				09C84A601C271DB2002CF5B7 /* Project.Shared.xcconfig */,
+			);
+			path = xcode.config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,133 +248,43 @@
 /* Begin XCBuildConfiguration section */
 		09C559EA19C8008700879A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09C84A5E1C271DB2002CF5B7 /* Project.Debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = NO;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		09C559EB19C8008700879A96 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09C84A5F1C271DB2002CF5B7 /* Project.Release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		09C559ED19C8008700879A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09C84A581C271DB2002CF5B7 /* os.log.Debug.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		09C559EE19C8008700879A96 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09C84A5C1C271DB2002CF5B7 /* os.log.Release.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		09C55A1319C800F300879A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09C84A591C271DB2002CF5B7 /* os.log.ios.Debug.xcconfig */;
 			buildSettings = {
-				DSTROOT = /tmp/os_log_ios.dst;
-				EXECUTABLE_PREFIX = "";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "source/os.log-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
 		09C55A1419C800F300879A96 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09C84A5A1C271DB2002CF5B7 /* os.log.ios.Release.xcconfig */;
 			buildSettings = {
-				DSTROOT = /tmp/os_log_ios.dst;
-				EXECUTABLE_PREFIX = "";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "source/os.log-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
