@@ -39,7 +39,7 @@
 		097663EF1AD35C5A0099DA54 /* os.log-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "os.log-Prefix.pch"; sourceTree = "<group>"; };
 		097663F01AD35C5A0099DA54 /* os.log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.cpp; sourceTree = "<group>"; };
 		097663F11AD35C5A0099DA54 /* os.log.format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.format.cpp; sourceTree = "<group>"; };
-		09C559E819C8008700879A96 /* os.log.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = os.log.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		09C559E819C8008700879A96 /* libos.log.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libos.log.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C559F319C800F200879A96 /* os.log.ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = os.log.ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C559F519C800F200879A96 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09C55A0319C800F300879A96 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -111,7 +111,7 @@
 		09C559E919C8008700879A96 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				09C559E819C8008700879A96 /* os.log.a */,
+				09C559E819C8008700879A96 /* libos.log.a */,
 				09C559F319C800F200879A96 /* os.log.ios.a */,
 			);
 			name = Products;
@@ -175,7 +175,7 @@
 			);
 			name = os.log;
 			productName = os.log;
-			productReference = 09C559E819C8008700879A96 /* os.log.a */;
+			productReference = 09C559E819C8008700879A96 /* libos.log.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		09C559F219C800F200879A96 /* os.log.ios */ = {
