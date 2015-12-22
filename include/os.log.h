@@ -35,13 +35,13 @@ with the advantage that :
 */
 
 #ifndef NDEBUG
-#define ASSERT_THROW do{throw;}while(0)
+#define ASSERT__THROW do{throw;}while(0)
 #else
-#define ASSERT_THROW do{}while(0)
+#define ASSERT__THROW do{}while(0)
 #endif
 
 #define ASSERT_ERR_LOG(x) ERR_LOG(x,Assertion)
-#define ASSERT_ERR(x) do{ASSERT_ERR_LOG(x); ASSERT_THROW;}while(0)
+#define ASSERT_ERR(x) do{ASSERT_ERR_LOG(x); ASSERT__THROW;}while(0)
 
 #ifdef _MSC_VER
 #define likely(x)  x
