@@ -21,6 +21,7 @@
 #define FILE_SEPARATOR "/"
 #endif
 
+#include <cstdlib>
 #include <execinfo.h>
 #include <cxxabi.h>
 #include <stdio.h>
@@ -223,19 +224,21 @@ void logStack()
                 if(loc_space2 != std::string::npos)
                 {
                     std::string subTrace = trace.substr(loc_space, loc_space2 - loc_space);
-                    size_t maxName = 256;
                     int demangleStatus;
                     
-                    char* demangledName = (char*) malloc(maxName);
-                    if ((demangledName = abi::__cxa_demangle(subTrace.c_str(), demangledName, &maxName, &demangleStatus)) && demangleStatus == 0)
+                    std::unique_ptr<char, void(*)(void*)> res {
+                        abi::__cxa_demangle(subTrace.c_str(), NULL, NULL, &demangleStatus),
+                        std::free
+                    };
+                    
+                    if( res && demangleStatus == 0)
                     {
-                        subTrace = demangledName;
+                        subTrace = res.get();
                         
 						simplifySymbol(subTrace);
 
                         trace.replace(loc_space, loc_space2 - loc_space, subTrace);
                     }
-                    free(demangledName);
                 }
             }
         }
