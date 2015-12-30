@@ -53,6 +53,37 @@ namespace imajuscule
         }
     }
     
+    void FormatDateForComparison(std::string & date)
+    {
+        const char * numbers = "0123456789";
+        
+        if (11 < date.size())
+        {
+            if (2 == date.find_first_not_of(numbers, 0))
+            {
+                if (5 == date.find_first_not_of(numbers, 3))
+                {
+                    if (10 == date.find_first_not_of(numbers, 6))
+                    {
+                        //date is with format "dd?mm?yyyy?....." : reverse it
+                        std::string newDate;
+                        newDate.append(date.substr(6, 4));
+                        newDate.append("/");
+                        newDate.append(date.substr(3, 2));
+                        newDate.append("/");
+                        newDate.append(date.substr(0, 2));
+                        
+                        newDate.append(date.substr(10));
+                        
+                        A(newDate.size() == date.size());
+                        
+                        date.swap(newDate);
+                    }
+                }
+            }
+        }
+    }
+    
     std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
         std::stringstream ss(s);
         std::string item;
