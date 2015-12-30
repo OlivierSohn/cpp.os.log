@@ -41,7 +41,7 @@
 
 namespace imajuscule
 {
-	void simplifySymbol(std::string & subTrace)
+	static void simplifySymbol(std::string & subTrace)
 	{
 		std::string s = "imajuscule::";
 

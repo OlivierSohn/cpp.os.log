@@ -12,8 +12,9 @@
 
 namespace imajuscule
 {
-    std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
-    std::vector<std::string> split(const std::string &s, char delim);
+    void split_in_lines(const std::string &s, char delim, std::vector<std::string> &elems);
+    std::vector<std::string> split_in_lines(const std::string &s, char delim);
+    std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters = " ");
     
     void FormatDate(tm*time, std::string&oDate);
     void FormatDateForComparison(std::string & date);

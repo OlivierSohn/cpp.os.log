@@ -84,24 +84,45 @@ namespace imajuscule
         }
     }
     
-    std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+    void split_in_lines(const std::string &s, char delim, std::vector<std::string> &elems) {
         std::stringstream ss(s);
         std::string item;
         while (std::getline(ss, item, delim)) {
             elems.push_back(item);
         }
         // add an empty line if new line is the last character
-        if(s.back()==delim)
+        if(s.back()==delim) {
             elems.emplace_back("");
-        
-        return elems;
+        }
     }
-    std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> split_in_lines(const std::string &s, char delim) {
         std::vector<std::string> elems;
-        split(s, delim, elems);
+        split_in_lines(s, delim, elems);
         return elems;
     }
     
+    std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters)
+    {
+        std::vector<std::string> tokens;
+        // Skip delimiters at beginning.
+        std::string::size_type lastPos = str.find_first_not_of(delimiters, 0);
+        // Find first "non-delimiter".
+        std::string::size_type pos = str.find_first_of(delimiters, lastPos);
+        
+        while (std::string::npos != pos || std::string::npos != lastPos)
+        {
+            // Found a token, add it to the vector.
+            tokens.push_back(str.substr(lastPos, pos - lastPos));
+            // Skip delimiters.  Note the "not_of"
+            lastPos = str.find_first_not_of(delimiters, pos);
+            // Find next "non-delimiter"
+            pos = str.find_first_of(delimiters, lastPos);
+        }
+        
+        return tokens;
+    }
+    
+
     bool iequals(const std::string& a, const std::string& b)
     {
         size_t sz = a.size();

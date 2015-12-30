@@ -26,7 +26,7 @@ namespace imajuscule
 	}
 #endif
 
-	void LG(logLevel level, /*const char* sModule,*/ const char * txt)
+	static void LG(logLevel level, /*const char* sModule,*/ const char * txt)
 	{
 #ifdef __ANDROID__
 #ifndef NDEBUG
