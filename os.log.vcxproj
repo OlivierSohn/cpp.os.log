@@ -22,6 +22,7 @@
     <ProjectGuid>{9A438BD3-A5F0-48D4-870F-F46DA832F32D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>oslog</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
