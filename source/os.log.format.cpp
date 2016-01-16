@@ -126,11 +126,14 @@ namespace imajuscule
     bool iequals(const std::string& a, const std::string& b)
     {
         size_t sz = a.size();
-        if (b.size() != sz)
+        if (b.size() != sz) {
             return false;
-        for (size_t i = 0; i < sz; ++i)
-            if (tolower(a[i]) != tolower(b[i]))
+        }
+        for (size_t i = 0; i < sz; ++i) {
+            if (tolower(a[i]) != tolower(b[i])) {
                 return false;
+            }            
+        }
         return true;
     }
 
