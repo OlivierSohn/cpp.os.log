@@ -87,7 +87,8 @@ with
     template <class T>
     void logCoords(const char * message, const T & coords)
     {
-        LG(INFO, "%s %f %f %f", message, coords[0], coords[1], coords[2]);
+        
+        LG(INFO, "%s % .3f % .3f % .3f", message, coords[0], coords[1], coords[2]);
     }
     
     template <class T>
