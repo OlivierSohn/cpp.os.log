@@ -41,4 +41,11 @@ namespace imajuscule
         s.erase(std::remove_if(s.begin(), s.end(), std::not1(std::function<int(int)>((int(*)(int))std::isalnum))), s.end());
         return s;
     }
+    
+    inline std::string opposite( std::string const & s ) {
+        return "-(" + s + ")";
+    }
+    inline std::string opposite( std::string && s ) {
+        return "-(" + s + ")";
+    }
 }
