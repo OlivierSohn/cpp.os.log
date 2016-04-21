@@ -90,6 +90,9 @@ namespace imajuscule
         while (std::getline(ss, item, delim)) {
             elems.push_back(item);
         }
+        if ( s.empty() ) {
+            return;
+        }
         // add an empty line if new line is the last character
         if(s.back()==delim) {
             elems.emplace_back("");
