@@ -63,7 +63,39 @@ namespace imajuscule
     inline void rtrim(std::string &s) {
         s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
     }
+
+    // trim from start (in place)
+    inline bool ltrim(std::string &s, char c) {
+        bool result = false;
+        s.erase(s.begin(), std::find_if(s.begin(), s.end(), [=, &result](char C) {
+            if(std::isspace(c)) {
+                return false;
+            }
+            if(c==C) {
+                result = true;
+                return false;
+            }
+            return true;
+        }));
+        return result;
+    }
     
+    // trim from end (in place)
+    inline bool rtrim(std::string &s, char c) {
+        bool result = false;
+        s.erase(std::find_if(s.rbegin(), s.rend(), [=, &result](char C) {
+            if(std::isspace(c)) {
+                return false;
+            }
+            if(c==C) {
+                result = true;
+                return false;
+            }
+            return true;
+        }).base(), s.end());
+        return result;
+    }
+
     // trim from both ends (in place)
     inline void trim(std::string &s) {
         ltrim(s);
@@ -86,5 +118,26 @@ namespace imajuscule
     inline std::string trimmed(std::string s) {
         trim(s);
         return s;
+    }
+    
+    inline bool removeParenthesis(std::string & str) {
+        bool res = ltrim(str,'(');
+        return rtrim(str,')') || res;
+    }
+    
+    inline bool toFloat(std::string & str, float & f) {
+        trim(str);
+        if(str.empty()) {
+            return false;
+        }
+        char * e;
+        f = std::strtof(str.c_str(), &e);
+        
+        if (*e != '\0' // error, we didn't consume the entire string
+            )
+        {
+            return false;
+        }
+        return true;
     }
 }
