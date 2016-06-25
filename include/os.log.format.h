@@ -140,4 +140,13 @@ namespace imajuscule
         }
         return true;
     }
+    
+    static inline std::vector<std::string> variables(std::string const & str) {
+        auto v = Tokenize(str,",");
+        for(auto & s : v) {
+            trim(s);
+        }
+        v.erase(std::remove(v.begin(), v.end(), ""), v.end());
+        return v;
+    }
 }
