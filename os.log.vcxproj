@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\os.log.content.h" />
     <ClInclude Include="include\os.log.format.h" />
     <ClInclude Include="include\os.log.h" />
     <ClInclude Include="include\os.log.allincludes.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="source\win32\targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\os.log.content.cpp" />
     <ClCompile Include="source\os.log.cpp" />
     <ClCompile Include="source\os.log.format.cpp" />
     <ClCompile Include="source\os.log.stack.cpp" />
