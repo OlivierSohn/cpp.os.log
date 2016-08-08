@@ -13,17 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\win32">
-      <UniqueIdentifier>{84c9bb42-b369-412d-a1f8-7a3302d731ae}</UniqueIdentifier>
+    <Filter Include="Unity">
+      <UniqueIdentifier>{de83d126-5a6f-408d-aba3-0f452b0210fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\win32\stdafx.h">
-      <Filter>Source Files\win32</Filter>
-    </ClInclude>
-    <ClInclude Include="source\win32\targetver.h">
-      <Filter>Source Files\win32</Filter>
-    </ClInclude>
     <ClInclude Include="include\os.log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -47,9 +41,6 @@
     <ClCompile Include="source\os.log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\win32\stdafx.cpp">
-      <Filter>Source Files\win32</Filter>
-    </ClCompile>
     <ClCompile Include="source\os.log.format.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="source\shortids.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\unity.build.cpp">
+      <Filter>Unity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
