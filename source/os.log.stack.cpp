@@ -55,131 +55,69 @@ namespace imajuscule
 		} while (bGoOn);
 	}
 
+    void CreateMiniDump(EXCEPTION_POINTERS* pep)
+    {
+        // Open the file 
+
+        LG(ERR, "writing minidump...");
+        HANDLE hFile = CreateFile(L"MiniDump.dmp", GENERIC_READ | GENERIC_WRITE,
+            0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+
+        if ( (hFile != NULL) && (hFile != INVALID_HANDLE_VALUE) )
+        {
+            // Create the minidump 
+
+            MINIDUMP_EXCEPTION_INFORMATION mdei;
+
+            mdei.ThreadId = GetCurrentThreadId();
+            mdei.ExceptionPointers = pep;
+            mdei.ClientPointers = FALSE;
+
+            MINIDUMP_TYPE mdt = MiniDumpNormal;
+
+            BOOL rv = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(),
+                hFile, mdt, (pep != 0) ? &mdei : 0, 0, 0);
+
+            if ( !rv )
+                LG(ERR,"MiniDumpWriteDump failed. Error: %u", GetLastError());
+
+            // Close the file 
+
+            CloseHandle(hFile);
+
+        } else
+        {
+            LG(ERR, "CreateFile failed. Error: %u", GetLastError());
+        }
+
+    }
 void logStack()
 {
-	const char * line =   "   o___.__o______o_____._______________o___o_____._________o_o______._o__._________o_.______.___o_o";
-	const char * lin =    "   o                                                                                              o";
-	const char * lineS =  " o  ______________________________________________________________________________________________  o";
-	const char * pipes =  " o                                                                                                  o";
-	const char * pipes2 = "    o                                                                                            o";
-	const char * Header = "O                                          STACK BEGIN                                               O";
-	const char * Footer = "O           .                              STACK END          o                .                     O";
-	const char * pip =    "O                                                                                                    O";
-	const char * pipesU = "o __________________________________________________________________________________________________ o";
-	const char * st     = " o                                                                                                  o";
-	const char * pipesS = " O ___ o ____ . ____ o ________________._________________ O _______________ o _________._____ o ___ O ";
-
-	LG(INFO, "");
-	LG(INFO, line);
-	LG(INFO, pipes);
-	LG(INFO, Header);
-	LG(INFO, pipesU);
-	LG(INFO, st);
-	LG(INFO, "");
-
 #ifdef _WIN32
-	_set_printf_count_output(1);
-#define TRACE_MAX_STACK_FRAMES 1024
-#define TRACE_MAX_FUNCTION_NAME_LENGTH 1024
-
-	void *stack[TRACE_MAX_STACK_FRAMES];
-	HANDLE process = GetCurrentProcess();
-	SymInitialize(process, NULL, TRUE);
-	WORD numberOfFrames = CaptureStackBackTrace(0, TRACE_MAX_STACK_FRAMES, stack, NULL);
-	SYMBOL_INFO *symbol = (SYMBOL_INFO *)malloc(sizeof(SYMBOL_INFO) + (TRACE_MAX_FUNCTION_NAME_LENGTH - 1) * sizeof(TCHAR));
-	symbol->MaxNameLen = TRACE_MAX_FUNCTION_NAME_LENGTH;
-	symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-	DWORD displacement;
-#ifdef _WIN64
-	IMAGEHLP_LINE64 *Line = (IMAGEHLP_LINE64 *)malloc(sizeof(IMAGEHLP_LINE64));
-	Line->SizeOfStruct = sizeof(IMAGEHLP_LINE64);
-#else
-	IMAGEHLP_LINE *Line = (IMAGEHLP_LINE *)malloc(sizeof(IMAGEHLP_LINE));
-	Line->SizeOfStruct = sizeof(IMAGEHLP_LINE);
-#endif
-
-	char * id = FILE_PATH_PATTERN;
-
-	int sizeSymbol(0);
-	int sizeFile(0);
-	const int sizeSymbolMax = 50;
-	const int sizeFileMax = 50;
-	for (int i = 0; i < numberOfFrames; i++)
-	{
-#ifdef _WIN64
-		DWORD64 address = (DWORD64)(stack[i]);
-#else
-		DWORD address = (DWORD)(stack[i]);
-#endif
-		SymFromAddr(process, address, NULL, symbol);
-		if (
-#ifdef _WIN64
-			SymGetLineFromAddr64
-#else
-			SymGetLineFromAddr
-#endif		
-			(process, address, &displacement, Line))
-		{
-			char * file = Line->FileName;
-			if (char* token = strstr(Line->FileName, id))
-				file = token + strlen(id);
-
-			int locSizeFile = strlen(file);
-			if (locSizeFile <= sizeFileMax)
-				sizeFile = std::max(sizeFile, locSizeFile);
-		}
-		std::string subTrace = symbol->Name;
-		simplifySymbol(subTrace);
-		int locSizeSymbol = subTrace.size();
-		if(locSizeSymbol <= sizeSymbolMax)
-			sizeSymbol = std::max(sizeSymbol, locSizeSymbol);
-	}
-
-	for (int i = 1/*skip current method*/; i < numberOfFrames; i++)
-	{
-#ifdef _WIN64
-		DWORD64 address = (DWORD64)(stack[i]);
-#else
-		DWORD address = (DWORD)(stack[i]);
-#endif		
-		SymFromAddr(process, address, NULL, symbol);
-		if (
-#ifdef _WIN64
-			SymGetLineFromAddr64
-#else
-			SymGetLineFromAddr
-#endif		
-			(process, address, &displacement, Line))
-		{
-			char * file = Line->FileName;
-			if (char* token = strstr(Line->FileName, id))
-				file = token + strlen(id);
-
-			std::string subTrace = symbol->Name;
-			simplifySymbol(subTrace);
-
-            const bool bSameLine = (subTrace.size() <= sizeSymbolMax);
-            const char * hundredSpaces = "                                                                                                  ";
-            const int nSpaces = bSameLine ? 0 : (2 + 4 /*INFO*/+ 16 + sizeSymbol);
-
-            LG(INFO, "%0#16I64X|%-*s%s%.*s|%s (%lu)",
-                symbol->Address,
-                sizeSymbol, subTrace.c_str(),
-                bSameLine ? "" : "\n",
-                nSpaces,
-                hundredSpaces,
-                file,
-                Line->LineNumber);
-		}
-		else
-		{
-			//LG(INFO, "\tSymGetLineFromAddr64 returned error code %lu", GetLastError());
-			LG(INFO, "%#16I64x|%-*s", symbol->Address, sizeSymbol, symbol->Name);
-		}
-	}
-
+    CreateMiniDump(0);
+    return;
 #else
     
+    const char * line = "   o___.__o______o_____._______________o___o_____._________o_o______._o__._________o_.______.___o_o";
+    const char * lin = "   o                                                                                              o";
+    const char * lineS = " o  ______________________________________________________________________________________________  o";
+    const char * pipes = " o                                                                                                  o";
+    const char * pipes2 = "    o                                                                                            o";
+    const char * Header = "O                                          STACK BEGIN                                               O";
+    const char * Footer = "O           .                              STACK END          o                .                     O";
+    const char * pip = "O                                                                                                    O";
+    const char * pipesU = "o __________________________________________________________________________________________________ o";
+    const char * st = " o                                                                                                  o";
+    const char * pipesS = " O ___ o ____ . ____ o ________________._________________ O _______________ o _________._____ o ___ O ";
+
+    LG(INFO, "");
+    LG(INFO, line);
+    LG(INFO, pipes);
+    LG(INFO, Header);
+    LG(INFO, pipesU);
+    LG(INFO, st);
+    LG(INFO, "");
+
     const int max_frames(100);
     
     // storage array for stack trace address data
@@ -249,15 +187,15 @@ void logStack()
     free(funcname);
     free(symbollist);
 
+    LG(INFO, "");
+    LG(INFO, pipes2);
+    LG(INFO, pipesS);
+    LG(INFO, pip);
+    LG(INFO, Footer);
+    LG(INFO, lineS);
+    LG(INFO, lin);
+    LG(INFO, "");
 #endif
 
-	LG(INFO, "");
-	LG(INFO, pipes2);
-	LG(INFO, pipesS);
-	LG(INFO, pip);
-	LG(INFO, Footer);
-	LG(INFO, lineS);
-	LG(INFO, lin);
-	LG(INFO, "");
 	}
 }
