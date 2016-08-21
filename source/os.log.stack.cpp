@@ -55,7 +55,8 @@ namespace imajuscule
 		} while (bGoOn);
 	}
 
-    void CreateMiniDump(EXCEPTION_POINTERS* pep)
+#ifdef _WIN32
+    static void CreateMiniDump(EXCEPTION_POINTERS* pep)
     {
         // Open the file 
 
@@ -91,7 +92,9 @@ namespace imajuscule
         }
 
     }
-void logStack()
+#endif
+
+    void logStack()
 {
 #ifdef _WIN32
     CreateMiniDump(0);
