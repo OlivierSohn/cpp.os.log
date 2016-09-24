@@ -126,13 +126,19 @@ namespace imajuscule
     }
     
 
-    bool iequals(const std::string& a, const std::string& b)
+    bool iequals(const std::string& a, const std::string& b, int nCharacters)
     {
-        size_t sz = a.size();
-        if (b.size() != sz) {
-            return false;
+        int sz = (int)a.size();
+        if(nCharacters >= 0) {
+            if((int)b.size() < nCharacters || sz < nCharacters) {
+                return false;
+            }
+        } else {
+            if ((int)b.size() != sz) {
+                return false;
+            }
         }
-        for (size_t i = 0; i < sz; ++i) {
+        for (auto i = 0; (nCharacters < 0 && i < sz) || i<nCharacters; ++i) {
             if (tolower(a[i]) != tolower(b[i])) {
                 return false;
             }            

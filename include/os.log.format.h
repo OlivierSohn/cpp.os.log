@@ -18,7 +18,7 @@ namespace imajuscule
     
     void FormatDate(tm*time, std::string&oDate);
     void FormatDateForComparison(std::string & date);
-    bool iequals(const std::string& a, const std::string& b);
+    bool iequals(const std::string& a, const std::string& b, int nChars = -1);
     
     
     template<char ... CharacterList>
@@ -50,7 +50,12 @@ namespace imajuscule
     }
     
     inline int begins_with(std::string const& s, std::string && begin) {
-        return s.compare(0, begin.size(), begin) ? 0: (int) begin.size();
+        auto tmp = std::move(begin);
+        auto size_comparison = (int)tmp.size();
+        return iequals(tmp, s, size_comparison) ? size_comparison : 0;
+    }
+    inline int begins_with(std::string const& s, std::string const & begin) {
+        return begins_with(s,std::string(begin));
     }
     
     
