@@ -12,7 +12,11 @@
 
 namespace imajuscule
 {
-    void split_in_lines(const std::string &s, char delim, std::vector<std::string> &elems);
+    enum postProcessing {
+        TRIMMED,
+        NOT_TRIMMED
+    };
+    void split_in_lines(const std::string &s, char delim, std::vector<std::string> &elems, postProcessing pp = NOT_TRIMMED);
     std::vector<std::string> split_in_lines(const std::string &s, char delim = '\n');
     std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters = " ");
     
@@ -130,8 +134,7 @@ namespace imajuscule
         return rtrim(str,')') || res;
     }
     
-    inline bool toFloat(std::string & str, float & f) {
-        trim(str);
+    inline bool toFloat(std::string const & str, float & f) {
         if(str.empty()) {
             return false;
         }
