@@ -167,10 +167,10 @@ namespace imajuscule
         
         // pos is the position AFTER lastPos where we have a delimiter
         
-        A(pos > lastPos);
+        A(pos >lastPos);
         while ( pos != end || lastPos != end)
         {
-            A(pos > lastPos);
+            A(pos >lastPos);
             // Found a token, add it to the vector.
             add(tokens, str.substr(lastPos, pos - lastPos), pp);
             if(pos == end) {
