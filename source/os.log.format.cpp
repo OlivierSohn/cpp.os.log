@@ -1,5 +1,6 @@
 #include "os.log.format.h"
 #include "os.log.h"
+
 namespace imajuscule
 {
     void FormatDate(tm*time, std::string&oDate)
@@ -107,22 +108,84 @@ namespace imajuscule
         return elems;
     }
     
-    std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters)
+    inline void add(std::vector<std::string> & vec, std::string && s, postProcessing pp) {
+        if(pp == postProcessing::TRIMMED) {
+            trim(s);
+            if(s.empty()) {
+                return;
+            }
+        }
+        vec.emplace_back(s);
+    }
+    std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters, postProcessing pp)
     {
-        std::vector<std::string> tokens;
-        // Skip delimiters at beginning.
-        std::string::size_type lastPos = str.find_first_not_of(delimiters, 0);
-        // Find first "non-delimiter".
-        std::string::size_type pos = str.find_first_of(delimiters, lastPos);
+        using sz = std::string::size_type;
+        auto const end = std::string::npos;
         
-        while (std::string::npos != pos || std::string::npos != lastPos)
+        std::vector<std::string> tokens;
+        
+        sz lastPos = str.find_first_not_of(delimiters, 0);
+        sz pos = str.find_first_of(delimiters, lastPos);
+        
+        while ( pos != end || lastPos != end)
         {
             // Found a token, add it to the vector.
-            tokens.push_back(str.substr(lastPos, pos - lastPos));
-            // Skip delimiters.  Note the "not_of"
+            add(tokens, str.substr(lastPos, pos - lastPos), pp);
             lastPos = str.find_first_not_of(delimiters, pos);
-            // Find next "non-delimiter"
             pos = str.find_first_of(delimiters, lastPos);
+        }
+        
+        return tokens;
+    }
+    
+    std::vector<std::string> TokenizeMulti(const std::string& str, const std::string& delimiter, postProcessing pp)
+    {
+        std::vector<std::string> tokens;
+        if(delimiter.empty()) {
+            for(auto c : str) {
+                tokens.emplace_back(1, c);
+            }
+            return tokens;
+        }
+        
+        using sz = std::string::size_type;
+        auto const end = std::string::npos;
+        
+        sz lastPos = 0;
+        while (str.compare(lastPos, delimiter.size(), delimiter) == 0)
+        {
+            // str begins with delimiter
+            lastPos += delimiter.size();
+        }
+        if(lastPos == str.size()) {
+            return tokens;
+        }
+        
+        // lastPos is the first position where we have NOT a delimiter
+        
+        sz pos = str.find(delimiter, lastPos);
+        
+        // pos is the position AFTER lastPos where we have a delimiter
+        
+        A(pos > lastPos);
+        while ( pos != end || lastPos != end)
+        {
+            A(pos > lastPos);
+            // Found a token, add it to the vector.
+            add(tokens, str.substr(lastPos, pos - lastPos), pp);
+            if(pos == end) {
+                return tokens;
+            }
+            lastPos = pos + delimiter.size();
+            while (str.compare(lastPos, delimiter.size(), delimiter) == 0)
+            {
+                lastPos += delimiter.size();
+            }
+            if(lastPos == str.size()) {
+                return tokens;
+            }
+            
+            pos = str.find(delimiter, lastPos);
         }
         
         return tokens;

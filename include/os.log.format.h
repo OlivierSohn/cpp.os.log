@@ -18,7 +18,8 @@ namespace imajuscule
     };
     void split_in_lines(const std::string &s, char delim, std::vector<std::string> &elems, postProcessing pp = NOT_TRIMMED);
     std::vector<std::string> split_in_lines(const std::string &s, char delim = '\n');
-    std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters = " ");
+    std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters = " ", postProcessing pp = NOT_TRIMMED);
+    std::vector<std::string> TokenizeMulti(const std::string& str, const std::string& delimiter, postProcessing pp = NOT_TRIMMED);
     
     void FormatDate(tm*time, std::string&oDate);
     void FormatDateForComparison(std::string & date);
@@ -130,8 +131,14 @@ namespace imajuscule
     }
     
     inline bool removeParenthesis(std::string & str) {
-        bool res = ltrim(str,'(');
-        return rtrim(str,')') || res;
+        auto str_ = str;
+        if( ltrim(str_,'(') && rtrim(str_,')')) {
+            // we have removed one opening and one closing parenthesis so we can substitute the result
+            str = str_;
+            return true;
+        }
+        // either the opening or the closing parenthesis could not be removed
+        return false;
     }
     
     inline bool toFloat(std::string const & str, float & f) {
@@ -150,11 +157,17 @@ namespace imajuscule
     }
     
     static inline std::vector<std::string> variables(std::string const & str) {
-        auto v = Tokenize(str,",");
-        for(auto & s : v) {
-            trim(s);
-        }
+        auto str_ = str;
+        removeParenthesis(str_);
+        auto v = Tokenize(str_,",", postProcessing::TRIMMED);
         v.erase(std::remove(v.begin(), v.end(), ""), v.end());
         return v;
+    }
+    
+    static inline std::string toLower( std::string s) {
+        for (auto & c : s) {
+            c = std::tolower(c);
+        }
+        return s;
     }
 }
