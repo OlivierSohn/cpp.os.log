@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <cctype>
 #include <locale>
+#include <cassert>
 
 namespace imajuscule
 {
@@ -75,35 +76,39 @@ namespace imajuscule
     }
 
     // trim from start (in place)
-    inline bool ltrim(std::string &s, char c) {
-        bool result = false;
-        s.erase(s.begin(), std::find_if(s.begin(), s.end(), [=, &result](char C) {
-            if(std::isspace(c)) {
-                return false;
+    inline bool ltrim(std::string &s, char c, int maxCount = -1) {
+        int i=0;
+        int size = (int)s.size();
+        while(i!= maxCount && i < size) {
+            if(!std::isspace(s[i]) && s[i] != c) {
+                break;
             }
-            if(c==C) {
-                result = true;
-                return false;
-            }
-            return true;
-        }));
-        return result;
+            ++i;
+        }
+        if(!i) {
+            return false;
+        }
+        s.erase(0, i);
+        return true;
     }
     
     // trim from end (in place)
-    inline bool rtrim(std::string &s, char c) {
-        bool result = false;
-        s.erase(std::find_if(s.rbegin(), s.rend(), [=, &result](char C) {
-            if(std::isspace(c)) {
-                return false;
+    inline bool rtrim(std::string &s, char c, int maxCount = -1) {
+        int size = (int)s.size();
+        int i = size - 1;
+        int n=0;
+        while(n!= maxCount && i >= 0) {
+            if(!std::isspace(s[i]) && s[i] != c) {
+                break;
             }
-            if(c==C) {
-                result = true;
-                return false;
-            }
-            return true;
-        }).base(), s.end());
-        return result;
+            --i;
+            ++n;
+        }
+        if(!n) {
+            return false;
+        }
+        s.erase(i+1, n);
+        return true;
     }
 
     // trim from both ends (in place)
@@ -130,17 +135,6 @@ namespace imajuscule
         return s;
     }
     
-    inline bool removeParenthesis(std::string & str) {
-        auto str_ = str;
-        if( ltrim(str_,'(') && rtrim(str_,')')) {
-            // we have removed one opening and one closing parenthesis so we can substitute the result
-            str = str_;
-            return true;
-        }
-        // either the opening or the closing parenthesis could not be removed
-        return false;
-    }
-    
     inline bool toFloat(std::string const & str, float & f) {
         if(str.empty()) {
             return false;
@@ -156,18 +150,29 @@ namespace imajuscule
         return true;
     }
     
-    static inline std::vector<std::string> variables(std::string const & str) {
-        auto str_ = str;
-        removeParenthesis(str_);
-        auto v = Tokenize(str_,",", postProcessing::TRIMMED);
-        v.erase(std::remove(v.begin(), v.end(), ""), v.end());
-        return v;
-    }
-    
     static inline std::string toLower( std::string s) {
         for (auto & c : s) {
             c = std::tolower(c);
         }
         return s;
+    }
+    static inline std::string toUpper( std::string s) {
+        for (auto & c : s) {
+            c = std::toupper(c);
+        }
+        return s;
+    }
+    
+    bool findCorrespondantLocation(std::string const & text, const char c1, const int index1, const char c2, const bool bForward, int & index2);
+    bool canCorrespond(const char c, char &cCorrespondant, bool & bForward);
+    
+    void removeOutterParenthesis(std::string & s);
+    
+    static inline std::vector<std::string> variables(std::string const & str) {
+        auto str_ = str;
+        removeOutterParenthesis(str_);
+        auto v = Tokenize(str_,",", postProcessing::TRIMMED);
+        v.erase(std::remove(v.begin(), v.end(), ""), v.end());
+        return v;
     }
 }

@@ -212,5 +212,137 @@ namespace imajuscule
         return true;
     }
 
+    void removeOutterParenthesis(std::string & s) {
+        
+        while(1) {
+            bool found = false;
+            
+            for(int i=0; i<(int)s.size(); i++) {
+                if(s[i] == '(') {
+                    int i2;
+                    if(findCorrespondantLocation(s, '(', i, ')', true, i2)) {
+                        // we found a matching closing parenthesis ...
+                        assert(s[i2] == ')');
+                        for(int i3 = i2+1; i3<(int)s.size(); ++i3) {
+                            if(!std::isspace(s[i3])) {
+                                // ... but there is significant information after this parenthesis
+                                // so we don't do anything
+                                return;
+                            }
+                        }
+                        // ... and there is nothing significant after so we remove both parenthesis
+                        found = true;
+                        s = s.substr(i+1, i2 - i - 1);
+                    }
+                    break;
+                }
+                if(!std::isspace(s[i])) {
+                    return;
+                }
+            }
+            
+            if(!found) {
+                return;
+            }
+        }
+    }
+
+    
+    bool findCorrespondantLocation(std::string const & text, const char c1, const int index1, const char c2, const bool bForward, int & index2)
+    {
+        int length = (int) text.length();
+        int i = index1;
+        
+        assert(i < length);
+        assert(text[i] == c1);
+        
+        int countInBetween = 1;
+        for (;;)
+        {
+            // 1. in(de)crement iterator and break loop if it is out of bounds
+            
+            if (bForward)
+            {
+                ++i;
+                if (i >= length)
+                    break;
+            }
+            else
+            {
+                if(0==i)
+                    break;
+                --i;
+            }
+            
+            // 2. the new iterator is valid
+            
+            char c = text[i];
+            
+            // 3. update "countInBetween" according to found char
+            
+            if (c == c1)
+            {
+                ++countInBetween;
+            }
+            else if (c == c2)
+            {
+                --countInBetween;
+            }
+            
+            if (0 == countInBetween)
+            {
+                // found it
+                index2 = i;
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    
+    bool canCorrespond(const char c, char &cCorrespondant, bool & bForward)
+    {
+        bool bRet = true;
+        bForward = true;
+        
+        switch (c)
+        {
+            case '(':
+                cCorrespondant = ')';
+                break;
+            case '[':
+                cCorrespondant = ']';
+                break;
+            case '{':
+                cCorrespondant = '}';
+                break;
+            default:
+                bRet = false;
+        }
+        
+        if (!bRet)
+        {
+            bRet = true;
+            bForward = false;
+            
+            switch (c)
+            {
+                case ')':
+                    cCorrespondant = '(';
+                    break;
+                case ']':
+                    cCorrespondant = '[';
+                    break;
+                case '}':
+                    cCorrespondant = '{';
+                    break;
+                default:
+                    bRet = false;
+            }
+        }
+        
+        return bRet;
+    }
 }
 
