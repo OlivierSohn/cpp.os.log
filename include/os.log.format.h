@@ -66,8 +66,12 @@ namespace imajuscule
     
     
     // trim from start (in place)
-    inline void ltrim(std::string &s) {
-        s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+    inline int ltrim(std::string &s) {
+        auto beg = s.begin();
+        auto first_non_space = std::find_if(beg, s.end(), std::not1(std::ptr_fun<int, int>(std::isspace)));
+        int range = static_cast<int>(std::distance(beg, first_non_space));
+        s.erase(beg, first_non_space);
+        return range;
     }
     
     // trim from end (in place)
@@ -112,9 +116,10 @@ namespace imajuscule
     }
 
     // trim from both ends (in place)
-    inline void trim(std::string &s) {
-        ltrim(s);
+    // returns the number of characters removed on the left side
+    inline int trim(std::string &s) {
         rtrim(s);
+        return ltrim(s);
     }
     
     // trim from start (copying)
@@ -150,16 +155,22 @@ namespace imajuscule
         return true;
     }
     
-    static inline std::string toLower( std::string s) {
+    static inline void Lower( std::string & s) {
         for (auto & c : s) {
             c = std::tolower(c);
         }
-        return s;
     }
-    static inline std::string toUpper( std::string s) {
+    static inline void Upper( std::string & s) {
         for (auto & c : s) {
             c = std::toupper(c);
         }
+    }
+    static inline std::string toLower( std::string s ) {
+        Lower(s);
+        return s;
+    }
+    static inline std::string toUpper( std::string s ) {
+        Upper(s);
         return s;
     }
     
