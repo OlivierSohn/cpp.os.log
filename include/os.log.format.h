@@ -186,4 +186,14 @@ namespace imajuscule
         v.erase(std::remove(v.begin(), v.end(), ""), v.end());
         return v;
     }
+    
+    static inline bool before_after(std::string & input_then_before, std::string delimiter, std::string & after) {
+        auto v = TokenizeMulti(input_then_before, delimiter, TRIMMED);
+        if(v.size() != 2) {
+            return false;
+        }
+        input_then_before = v[0];
+        after = v[1];
+        return true;
+    }
 }
