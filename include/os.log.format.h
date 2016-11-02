@@ -196,4 +196,30 @@ namespace imajuscule
         after = v[1];
         return true;
     }
+    
+    inline bool isACharName(char c) {
+        if(std::isalnum(c)) {
+            return true;;
+        }
+        if(c=='_') {
+            return true;
+        }
+        return false;
+    }
+    
+    inline bool isAName(std::string const & name) {
+        if(name.empty()) {
+            return false;
+        }
+        
+        for(auto c : name) {
+            if(isACharName(c)) {
+                continue;
+            }
+            return false;
+        }
+        
+        return true;
+    }
+
 }
