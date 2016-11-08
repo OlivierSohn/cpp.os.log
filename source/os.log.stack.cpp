@@ -62,9 +62,9 @@ namespace imajuscule
 
         LG(ERR, "writing minidump...");
         HANDLE hFile = CreateFile(L"MiniDump.dmp", GENERIC_READ | GENERIC_WRITE,
-            0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+            0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-        if ( (hFile != NULL) && (hFile != INVALID_HANDLE_VALUE) )
+        if ( (hFile != nullptr) && (hFile != INVALID_HANDLE_VALUE) )
         {
             // Create the minidump 
 
@@ -130,7 +130,7 @@ namespace imajuscule
     int addrlen = backtrace(addrlist, sizeof(addrlist) / sizeof(void*));
     if ( unlikely(!addrlen))
     {
-        LG(ERR,"logStack: backtrace_symbols returned NULL");
+        LG(ERR,"logStack: backtrace_symbols returned nullptr");
         return;
     }
     
@@ -168,7 +168,7 @@ namespace imajuscule
                     int demangleStatus;
                     
                     std::unique_ptr<char, void(*)(void*)> res {
-                        abi::__cxa_demangle(subTrace.c_str(), NULL, NULL, &demangleStatus),
+                        abi::__cxa_demangle(subTrace.c_str(), nullptr, nullptr, &demangleStatus),
                         std::free
                     };
                     

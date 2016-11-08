@@ -49,7 +49,7 @@ namespace imajuscule
         }
         else
         {
-            LG(ERR, "FormatDate: NULL parameter time");
+            LG(ERR, "FormatDate: nullptr parameter time");
             oDate.assign("..../../.. ..:..:..");
         }
     }

@@ -73,7 +73,7 @@ with the advantage that :
 //  else
 //  {
 //      assert(x);
-//      LG(ERR,"x is NULL");
+//      LG(ERR,"x is nullptr");
 //  }
 
 with
