@@ -138,6 +138,47 @@ namespace imajuscule
         return tokens;
     }
     
+    std::vector<std::string> TokenizeWithAtomicDoubleQuoted(const std::string& str, const std::string& delimiters, postProcessing pp, bool & error)
+    {
+        error = false;
+        
+        using sz = std::string::size_type;
+        auto const end = std::string::npos;
+        
+        std::vector<std::string> tokens;
+        
+        sz lastPos = str.find_first_not_of(delimiters, 0);
+        sz pos = str.find_first_of(delimiters, lastPos);
+        
+        size_t nquotes = 0;
+        
+        while ( pos != end || lastPos != end)
+        {
+            auto prev = nquotes;
+            nquotes += std::count( str.begin() + lastPos,
+                                  pos==end? str.end() : str.begin() + pos,
+                                  '\"');
+            if(0 == (nquotes % 2)) {
+                // Found a token, add it to the vector.
+                add(tokens, str.substr(lastPos, pos - lastPos), pp);
+                lastPos = str.find_first_not_of(delimiters, pos);
+                pos = str.find_first_of(delimiters, lastPos);
+            }
+            else if(pos != end) {
+                nquotes = prev;
+                pos = str.find_first_of(delimiters, pos+1);
+            }
+            else {
+                LG(ERR, "unnmatched ' in %s", str.c_str());
+                error = true;
+                tokens.clear();
+                break;
+            }
+        }
+        
+        return tokens;
+    }
+    
     std::vector<std::string> TokenizeMulti(const std::string& str, const std::string& delimiter, postProcessing pp)
     {
         std::vector<std::string> tokens;
@@ -257,7 +298,7 @@ namespace imajuscule
         assert(text[i] == c1);
         
         int countInBetween = 1;
-        for (;;)
+        while (true)
         {
             // 1. in(de)crement iterator and break loop if it is out of bounds
             
@@ -303,46 +344,47 @@ namespace imajuscule
     
     bool canCorrespond(const char c, char &cCorrespondant, bool & bForward)
     {
-        bool bRet = true;
         bForward = true;
         
         switch (c)
         {
             case '(':
                 cCorrespondant = ')';
-                break;
+                return true;
             case '[':
                 cCorrespondant = ']';
-                break;
+                return true;
             case '{':
                 cCorrespondant = '}';
-                break;
-            default:
-                bRet = false;
+                return true;
         }
         
-        if (!bRet)
+        bForward = false;
+        
+        switch (c)
         {
-            bRet = true;
-            bForward = false;
-            
-            switch (c)
-            {
-                case ')':
-                    cCorrespondant = '(';
-                    break;
-                case ']':
-                    cCorrespondant = '[';
-                    break;
-                case '}':
-                    cCorrespondant = '{';
-                    break;
-                default:
-                    bRet = false;
-            }
+            case ')':
+                cCorrespondant = '(';
+                return true;
+            case ']':
+                cCorrespondant = '[';
+                return true;
+            case '}':
+                cCorrespondant = '{';
+                return true;
         }
         
-        return bRet;
+        return false;
+    }
+    
+    void removeOutterDoubleQuotes(std::string & str) {
+        if(str.size() < 2) {
+            return;
+        }
+        if(str[0] != '"'|| str[str.size()-1] != '"') {
+            return;
+        }
+        str = str.substr(1, str.size()-2);
     }
 }
 

@@ -19,7 +19,9 @@ namespace imajuscule
     };
     void split_in_lines(const std::string &s, char delim, std::vector<std::string> &elems, postProcessing pp = NOT_TRIMMED);
     std::vector<std::string> split_in_lines(const std::string &s, char delim = '\n');
+
     std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters = " ", postProcessing pp = NOT_TRIMMED);
+    std::vector<std::string> TokenizeWithAtomicDoubleQuoted(const std::string& str, const std::string& delimiters, postProcessing pp, bool & err);
     std::vector<std::string> TokenizeMulti(const std::string& str, const std::string& delimiter, postProcessing pp = NOT_TRIMMED);
     
     void FormatDate(tm*time, std::string&oDate);
@@ -178,11 +180,12 @@ namespace imajuscule
     bool canCorrespond(const char c, char &cCorrespondant, bool & bForward);
     
     void removeOutterParenthesis(std::string & s);
+    void removeOutterDoubleQuotes(std::string & s);
     
-    static inline std::vector<std::string> variables(std::string const & str) {
+    static inline std::vector<std::string> variables(std::string const & str, bool & err) {
         auto str_ = str;
         removeOutterParenthesis(str_);
-        auto v = Tokenize(str_,",", postProcessing::TRIMMED);
+        auto v = TokenizeWithAtomicDoubleQuoted(str_, ",", postProcessing::TRIMMED, err);
         v.erase(std::remove(v.begin(), v.end(), ""), v.end());
         return v;
     }
