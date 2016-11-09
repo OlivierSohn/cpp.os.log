@@ -182,10 +182,13 @@ namespace imajuscule
     void removeOutterParenthesis(std::string & s);
     void removeOutterDoubleQuotes(std::string & s);
     
-    static inline std::vector<std::string> variables(std::string const & str, bool & err) {
+    static inline std::vector<std::string> variables(std::string const & str, char separator, bool & err) {
         auto str_ = str;
         removeOutterParenthesis(str_);
-        auto v = TokenizeWithAtomicDoubleQuoted(str_, ",", postProcessing::TRIMMED, err);
+        auto v = TokenizeWithAtomicDoubleQuoted(str_,
+                                                std::string(1 ,separator),
+                                                postProcessing::TRIMMED,
+                                                err);
         v.erase(std::remove(v.begin(), v.end(), ""), v.end());
         return v;
     }
