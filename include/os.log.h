@@ -85,15 +85,12 @@ with
 */
     
     template <class T>
-    void logCoords(const char * message, const T & coords)
-    {
-        
+    void logCoords(const char * message, const T & coords) {
         LG(INFO, "%s % .3f % .3f % .3f", message, coords[0], coords[1], coords[2]);
     }
     
     template <class T>
-    void logQuaternion(const char * message, const T & coords)
-    {
+    void logQuaternion(const char * message, const T & coords) {
         LG(INFO, "%s %.3f %.3f %.3f %.3f", message, coords[0], coords[1], coords[2], coords[3]);
     }
     
