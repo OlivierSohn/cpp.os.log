@@ -63,26 +63,6 @@ with the advantage that :
 #define A(x) do {} while ( 0 )
 #endif
 
-/* 
-"if_A" is used to replace 
-
-//  if(x)
-//  {
-//      // user code
-//  }
-//  else
-//  {
-//      assert(x);
-//      LG(ERR,"x is nullptr");
-//  }
-
-with
-
-//  if_A(x)
-//  {
-//      // user code
-//  }
-*/
     
     template <class T>
     void logCoords(const char * message, const T & coords) {
