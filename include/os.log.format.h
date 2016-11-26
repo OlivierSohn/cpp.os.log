@@ -28,6 +28,14 @@ namespace imajuscule
     void FormatDateForComparison(std::string & date);
     bool iequals(const std::string& a, const std::string& b, int nChars = -1);
     
+    static bool isUpper(std::string const & s) {
+        for(auto c : s) {
+            if(isalpha(c) && !isupper(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
     
     template<char ... CharacterList>
     inline bool check_characters(char c) {
@@ -179,12 +187,12 @@ namespace imajuscule
     bool findCorrespondantLocation(std::string const & text, const char c1, const int index1, const char c2, const bool bForward, int & index2);
     bool canCorrespond(const char c, char &cCorrespondant, bool & bForward);
     
-    void removeOutterParenthesis(std::string & s);
+    int removeOutterCorrespondings(std::string & s, char c1, int max_count_layers = -1);
     void removeOutterDoubleQuotes(std::string & s);
     
     static inline std::vector<std::string> variables(std::string const & str, char separator, bool & err) {
         auto str_ = str;
-        removeOutterParenthesis(str_);
+        removeOutterCorrespondings(str_, '(');
         auto v = TokenizeWithAtomicDoubleQuoted(str_,
                                                 std::string(1 ,separator),
                                                 postProcessing::TRIMMED,

@@ -232,7 +232,6 @@ namespace imajuscule
         return tokens;
     }
     
-
     bool iequals(const std::string& a, const std::string& b, int nCharacters)
     {
         int sz = (int)a.size();
@@ -253,37 +252,52 @@ namespace imajuscule
         return true;
     }
 
-    void removeOutterParenthesis(std::string & s) {
-        
+    int removeOutterCorrespondings(std::string & s, char c1, int max_count_layers) {
+        if(0 == max_count_layers) {
+            return 0;
+        }
+        char c2;
+        bool forward;
+        auto res = canCorrespond(c1, c2, forward);
+        if(!res) {
+            A(0);
+            return 0;
+        }
+        int n_removed = 0;
+        A(forward); // else swap c1,c2
         while(1) {
             bool found = false;
             
             for(int i=0; i<(int)s.size(); i++) {
-                if(s[i] == '(') {
+                if(s[i] == c1) {
                     int i2;
-                    if(findCorrespondantLocation(s, '(', i, ')', true, i2)) {
+                    if(findCorrespondantLocation(s, c1, i, c2, true, i2)) {
                         // we found a matching closing parenthesis ...
-                        assert(s[i2] == ')');
+                        A(s[i2] == c2);
                         for(int i3 = i2+1; i3<(int)s.size(); ++i3) {
                             if(!std::isspace(s[i3])) {
                                 // ... but there is significant information after this parenthesis
                                 // so we don't do anything
-                                return;
+                                return n_removed;
                             }
                         }
                         // ... and there is nothing significant after so we remove both parenthesis
                         found = true;
                         s = s.substr(i+1, i2 - i - 1);
+                        ++n_removed;
+                        if(max_count_layers >= 0 && n_removed == max_count_layers) {
+                            return n_removed;
+                        }
                     }
                     break;
                 }
                 if(!std::isspace(s[i])) {
-                    return;
+                    return n_removed;;
                 }
             }
             
             if(!found) {
-                return;
+                return n_removed;
             }
         }
     }
