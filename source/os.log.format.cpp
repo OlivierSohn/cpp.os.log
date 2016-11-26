@@ -199,12 +199,15 @@ namespace imajuscule
             lastPos += delimiter.size();
         }
         if(lastPos == str.size()) {
-            return tokens;
+            return {};
         }
         
         // lastPos is the first position where we have NOT a delimiter
         
         sz pos = str.find(delimiter, lastPos);
+        if(lastPos == 0 && pos == end) {
+            return {};
+        }
         
         // pos is the position AFTER lastPos where we have a delimiter
         
@@ -399,6 +402,28 @@ namespace imajuscule
             return;
         }
         str = str.substr(1, str.size()-2);
+    }
+    
+    bool before_after(std::string & input_then_before, std::string delimiter, std::string & after)
+    {
+        auto v = TokenizeMulti(input_then_before, delimiter, TRIMMED);
+        if(v.size() == 1) {
+            if(0 == input_then_before.find(delimiter)) {
+                input_then_before.clear();
+                after = v[0];
+            }
+            else {
+                input_then_before = v[0];
+                after.clear();
+            }
+            return true;
+        }
+        if(v.size() != 2) {
+            return false;
+        }
+        input_then_before = v[0];
+        after = v[1];
+        return true;
     }
 }
 

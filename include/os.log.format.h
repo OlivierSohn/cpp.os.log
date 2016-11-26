@@ -201,16 +201,8 @@ namespace imajuscule
         return v;
     }
     
-    static inline bool before_after(std::string & input_then_before, std::string delimiter, std::string & after) {
-        auto v = TokenizeMulti(input_then_before, delimiter, TRIMMED);
-        if(v.size() != 2) {
-            return false;
-        }
-        input_then_before = v[0];
-        after = v[1];
-        return true;
-    }
-    
+    bool before_after(std::string & input_then_before, std::string delimiter, std::string & after);
+
     inline bool isACharName(char c) {
         if(std::isalnum(c)) {
             return true;;
