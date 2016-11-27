@@ -150,21 +150,6 @@ namespace imajuscule
         return s;
     }
     
-    inline bool toFloat(std::string const & str, float & f) {
-        if(str.empty()) {
-            return false;
-        }
-        char * e;
-        f = std::strtof(str.c_str(), &e);
-        
-        if (*e != '\0' // error, we didn't consume the entire string
-            )
-        {
-            return false;
-        }
-        return true;
-    }
-    
     static inline void Lower( std::string & s) {
         for (auto & c : s) {
             c = std::tolower(c);
