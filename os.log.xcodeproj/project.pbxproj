@@ -10,7 +10,7 @@
 		097663F61AD35C5A0099DA54 /* os.log.allincludes.h in Headers */ = {isa = PBXBuildFile; fileRef = 097663EB1AD35C5A0099DA54 /* os.log.allincludes.h */; };
 		097663F71AD35C5A0099DA54 /* os.log.format.h in Headers */ = {isa = PBXBuildFile; fileRef = 097663EC1AD35C5A0099DA54 /* os.log.format.h */; };
 		097663F81AD35C5A0099DA54 /* os.log.h in Headers */ = {isa = PBXBuildFile; fileRef = 097663ED1AD35C5A0099DA54 /* os.log.h */; };
-		097834981D4D52EF00E47ED3 /* shortids.h in Headers */ = {isa = PBXBuildFile; fileRef = 097834971D4D52EF00E47ED3 /* shortids.h */; };
+		097834981D4D52EF00E47ED3 /* gen.names.h in Headers */ = {isa = PBXBuildFile; fileRef = 097834971D4D52EF00E47ED3 /* gen.names.h */; };
 		0978349D1D5797B600E47ED3 /* unity.build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0978349C1D5797B600E47ED3 /* unity.build.cpp */; };
 		0978349E1D5797B600E47ED3 /* unity.build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0978349C1D5797B600E47ED3 /* unity.build.cpp */; };
 		09BE53B81D3DB24900FACF5C /* os.log.content.h in Headers */ = {isa = PBXBuildFile; fileRef = 09BE53B71D3DB24900FACF5C /* os.log.content.h */; };
@@ -35,8 +35,8 @@
 		097663ED1AD35C5A0099DA54 /* os.log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.h; sourceTree = "<group>"; };
 		097663F01AD35C5A0099DA54 /* os.log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.cpp; sourceTree = "<group>"; };
 		097663F11AD35C5A0099DA54 /* os.log.format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.format.cpp; sourceTree = "<group>"; };
-		097834971D4D52EF00E47ED3 /* shortids.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shortids.h; sourceTree = "<group>"; };
-		097834991D4D532F00E47ED3 /* shortids.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shortids.cpp; sourceTree = "<group>"; };
+		097834971D4D52EF00E47ED3 /* gen.names.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gen.names.h; sourceTree = "<group>"; };
+		097834991D4D532F00E47ED3 /* gen.names.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gen.names.cpp; sourceTree = "<group>"; };
 		0978349C1D5797B600E47ED3 /* unity.build.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unity.build.cpp; sourceTree = "<group>"; };
 		09BE53B41D3DB23F00FACF5C /* os.log.content.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.content.cpp; sourceTree = "<group>"; };
 		09BE53B71D3DB24900FACF5C /* os.log.content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.content.h; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 		097663EA1AD35C5A0099DA54 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				097834971D4D52EF00E47ED3 /* shortids.h */,
+				097834971D4D52EF00E47ED3 /* gen.names.h */,
 				097663EB1AD35C5A0099DA54 /* os.log.allincludes.h */,
 				09BE53B71D3DB24900FACF5C /* os.log.content.h */,
 				097663EC1AD35C5A0099DA54 /* os.log.format.h */,
@@ -92,7 +92,7 @@
 		097663EE1AD35C5A0099DA54 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				097834991D4D532F00E47ED3 /* shortids.cpp */,
+				097834991D4D532F00E47ED3 /* gen.names.cpp */,
 				09BE53B41D3DB23F00FACF5C /* os.log.content.cpp */,
 				097663F01AD35C5A0099DA54 /* os.log.cpp */,
 				097663F11AD35C5A0099DA54 /* os.log.format.cpp */,
@@ -155,7 +155,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				097834981D4D52EF00E47ED3 /* shortids.h in Headers */,
+				097834981D4D52EF00E47ED3 /* gen.names.h in Headers */,
 				097663F71AD35C5A0099DA54 /* os.log.format.h in Headers */,
 				09BE53B81D3DB24900FACF5C /* os.log.content.h in Headers */,
 				097663F61AD35C5A0099DA54 /* os.log.allincludes.h in Headers */,
