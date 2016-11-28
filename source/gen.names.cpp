@@ -4,7 +4,7 @@ using namespace std;
 
 namespace imajuscule
 {
-    enum asciiAlphaLower { Min = ascii<'a'>::value, Max = ascii<'z'>::value };
+    enum asciiAlphaLower { Min = ord<'a'>, Max = ord<'z'> };
     
     int shortIds::count = 0;
     char shortIds::c = asciiAlphaLower::Min;

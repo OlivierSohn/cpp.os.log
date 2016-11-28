@@ -22,6 +22,8 @@ namespace imajuscule {
     template<> struct ascii<'a'> { static constexpr unsigned char value = 97; };
     template<> struct ascii<'z'> { static constexpr unsigned char value = 122; };
     template<> struct ascii<'_'> { static constexpr unsigned char value = 137; };
+
+    template <char T> constexpr unsigned int ord = ascii<T>::value;
     
     enum Case { UpperCase, LowerCase, AnyCase };
 
@@ -29,26 +31,26 @@ namespace imajuscule {
     struct charNameIterator {
         
         static unsigned char first() {
-            return ascii<'0'>::value;
+            return ord<'0'>;
         }
         static unsigned char last() {
-            return ascii<'_'>::value;
+            return ord<'_'>;
         }
         
         static char next(unsigned char v) {
             A(v >= first());
             A(v <= last());
-            if(v == ascii<'9'>::value) {
-                return (C == LowerCase) ? ascii<'a'>::value : ascii<'A'>::value;
+            if(v == ord<'9'>) {
+                return (C == LowerCase) ? ord<'a'> : ord<'A'>;
             }
-            if(C==AnyCase && v == ascii<'Z'>::value) {
-                return ascii<'a'>::value;
+            if(C==AnyCase && v == ord<'Z'>) {
+                return ord<'a'>;
             }
-            if((C!=UpperCase && v == ascii<'z'>::value) || (C==UpperCase && v == ascii<'Z'>::value)) {
-                return ascii<'_'>::value;
+            if((C!=UpperCase && v == ord<'z'>) || (C==UpperCase && v == ord<'Z'>)) {
+                return ord<'_'>;
             }
-            if(v == ascii<'_'>::value) {
-                return ascii<'0'>::value;
+            if(v == ord<'_'>) {
+                return ord<'0'>;
             }
             return v+1;
         }
