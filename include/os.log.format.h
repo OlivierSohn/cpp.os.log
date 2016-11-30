@@ -202,8 +202,15 @@ namespace imajuscule
         if(name.empty()) {
             return false;
         }
-        
+
+        bool first = true;
         for(auto c : name) {
+            if(first) {
+                first = false;
+                if(std::isdigit(c)) {
+                    return false;
+                }
+            }
             if(isACharName(c)) {
                 continue;
             }
