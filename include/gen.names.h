@@ -19,9 +19,9 @@ namespace imajuscule {
     template<> struct ascii<'9'> { static constexpr unsigned char value = 57; };
     template<> struct ascii<'A'> { static constexpr unsigned char value = 65; };
     template<> struct ascii<'Z'> { static constexpr unsigned char value = 90; };
+    template<> struct ascii<'_'> { static constexpr unsigned char value = 95; };
     template<> struct ascii<'a'> { static constexpr unsigned char value = 97; };
     template<> struct ascii<'z'> { static constexpr unsigned char value = 122; };
-    template<> struct ascii<'_'> { static constexpr unsigned char value = 137; };
 
     template <char T> constexpr unsigned int ord = ascii<T>::value;
     
@@ -34,22 +34,25 @@ namespace imajuscule {
             return ord<'0'>;
         }
         static unsigned char last() {
-            return ord<'_'>;
+            return (C!=UpperCase) ? ord<'z'> : ord<'_'>;
         }
         
         static char next(unsigned char v) {
             A(v >= first());
             A(v <= last());
             if(v == ord<'9'>) {
-                return (C == LowerCase) ? ord<'a'> : ord<'A'>;
+                return (C == LowerCase) ? ord<'_'> : ord<'A'>;
             }
-            if(C==AnyCase && v == ord<'Z'>) {
-                return ord<'a'>;
-            }
-            if((C!=UpperCase && v == ord<'z'>) || (C==UpperCase && v == ord<'Z'>)) {
+            if((C!=LowerCase) && (v == ord<'Z'>)) {
                 return ord<'_'>;
             }
             if(v == ord<'_'>) {
+                if(C!=UpperCase) {
+                    return ord<'a'>;
+                }
+                return ord<'0'>;
+            }
+            if((C!=UpperCase) && (v == ord<'z'>)) {
                 return ord<'0'>;
             }
             return v+1;
@@ -80,11 +83,14 @@ namespace imajuscule {
         
     private:
         void increment(){
-            if(name.back() == char_gen::last()) {
-                name.push_back(char_gen::first());
-                return;
+            for(auto it = name.rbegin(), end = name.rend(); it!=end; ++it) {
+                auto & c = *it;
+                c = char_gen::next(c);
+                if(c != char_gen::first()) {
+                    return;
+                }
             }
-            name.back() = char_gen::next(name.back());
+            name.assign(name.size()+1, char_gen::first());
         }
         std::string name;
     };
