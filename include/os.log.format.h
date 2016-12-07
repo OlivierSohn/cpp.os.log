@@ -65,15 +65,10 @@ namespace imajuscule
         return "-(" + s + ")";
     }
     
-    inline int begins_with(std::string const& s, std::string && begin) {
-        auto tmp = std::move(begin);
-        auto size_comparison = (int)tmp.size();
-        return iequals(tmp, s, size_comparison) ? size_comparison : 0;
-    }
-    inline int begins_with(std::string const& s, std::string const & begin) {
-        return begins_with(s,std::string(begin));
-    }
-    
+    inline int begins_with(std::string const& s, std::string begin) {
+        auto size_comparison = (int)begin.size();
+        return iequals(std::move(begin), s, size_comparison) ? size_comparison : 0;
+    }    
     
     // trim from start (in place)
     inline int ltrim(std::string &s) {
