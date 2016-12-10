@@ -254,60 +254,31 @@ namespace imajuscule
         }
         return true;
     }
-
-    int removeOutterCorrespondings(std::string & s, char c1, int max_count_layers) {
-        if(0 == max_count_layers) {
-            return 0;
-        }
-        char c2;
-        bool forward;
-        auto res = canCorrespond(c1, c2, forward);
-        if(!res) {
-            A(0);
-            return 0;
-        }
-        int n_removed = 0;
-        A(forward); // else swap c1,c2
-        while(1) {
-            bool found = false;
-            
-            for(int i=0; i<(int)s.size(); i++) {
-                if(s[i] == c1) {
-                    int i2;
-                    if(findCorrespondantLocation(s, c1, i, c2, true, i2)) {
-                        // we found a matching closing parenthesis ...
-                        A(s[i2] == c2);
-                        for(int i3 = i2+1; i3<(int)s.size(); ++i3) {
-                            if(!std::isspace(s[i3])) {
-                                // ... but there is significant information after this parenthesis
-                                // so we don't do anything
-                                return n_removed;
-                            }
-                        }
-                        // ... and there is nothing significant after so we remove both parenthesis
-                        found = true;
-                        s = s.substr(i+1, i2 - i - 1);
-                        ++n_removed;
-                        if(max_count_layers >= 0 && n_removed == max_count_layers) {
-                            return n_removed;
-                        }
-                    }
-                    break;
-                }
-                if(!std::isspace(s[i])) {
-                    return n_removed;;
-                }
-            }
-            
-            if(!found) {
-                return n_removed;
-            }
-        }
-    }
-
     
-    bool findCorrespondantLocation(std::string const & text, const char c1, const int index1, const char c2, const bool bForward, int & index2)
+    bool findCorrespondantLocation(std::string const & text, const char c1, const int index1, const char c2, Correspondance & correspondance, int & index2)
     {
+        if(correspondance == CORRESPONDS_ANY) { // let's resolve the correspondance
+            A(c1 == c2); // ' or "
+            auto count = std::count(text.begin(), text.begin() + index1, c1);
+            if(count %2) {
+                // odd : c1 is the closing one
+                correspondance = CORRESPONDS_BACKWARD;
+                auto other = text.find_last_of(c2, index1-1);
+                A(other != std::string::npos);
+                index2 = static_cast<int>(other);
+            }
+            else {
+                // even : c1 is the opening one
+                correspondance = CORRESPONDS_FORWARD;
+                auto other = text.find_first_of(c2, index1+1);
+                if(other == std::string::npos) {
+                    return false;
+                }
+                index2 = static_cast<int>(other);
+            }
+            return true;
+        }
+        
         int length = (int) text.length();
         int i = index1;
         
@@ -319,7 +290,7 @@ namespace imajuscule
         {
             // 1. in(de)crement iterator and break loop if it is out of bounds
             
-            if (bForward)
+            if (correspondance == CORRESPONDS_FORWARD)
             {
                 ++i;
                 if (i >= length)
@@ -338,7 +309,10 @@ namespace imajuscule
             
             // 3. update "countInBetween" according to found char
             
-            if (c == c1)
+            if(c1 == c2 && c == c1) {
+                --countInBetween;
+            }
+            else if (c == c1)
             {
                 ++countInBetween;
             }
@@ -358,10 +332,9 @@ namespace imajuscule
         return false;
     }
     
-    
-    bool canCorrespond(const char c, char &cCorrespondant, bool & bForward)
+    bool canCorrespond(const char c, char &cCorrespondant, Correspondance & correspondance)
     {
-        bForward = true;
+        correspondance = CORRESPONDS_FORWARD;
         
         switch (c)
         {
@@ -374,9 +347,17 @@ namespace imajuscule
             case '{':
                 cCorrespondant = '}';
                 return true;
+            case '\'':
+                cCorrespondant = '\'';
+                correspondance = CORRESPONDS_ANY;
+                return true;
+            case '"':
+                cCorrespondant = '"';
+                correspondance = CORRESPONDS_ANY;
+                return true;
         }
         
-        bForward = false;
+        correspondance = CORRESPONDS_BACKWARD;
         
         switch (c)
         {
@@ -391,6 +372,7 @@ namespace imajuscule
                 return true;
         }
         
+        correspondance = NOT_CORRESPONDING;
         return false;
     }
     

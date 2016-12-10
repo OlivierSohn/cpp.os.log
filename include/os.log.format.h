@@ -164,22 +164,12 @@ namespace imajuscule
         return s;
     }
     
-    bool findCorrespondantLocation(std::string const & text, const char c1, const int index1, const char c2, const bool bForward, int & index2);
-    bool canCorrespond(const char c, char &cCorrespondant, bool & bForward);
+    enum Correspondance : unsigned char { NOT_CORRESPONDING, CORRESPONDS_BACKWARD, CORRESPONDS_FORWARD, CORRESPONDS_ANY };
+
+    bool findCorrespondantLocation(std::string const & text, const char c1, const int index1, const char c2, Correspondance &, int & index2);
+    bool canCorrespond(const char c, char &cCorrespondant, Correspondance & correspondance);
     
-    int removeOutterCorrespondings(std::string & s, char c1, int max_count_layers = -1);
     void removeOutterDoubleQuotes(std::string & s);
-    
-    static inline std::vector<std::string> variables(std::string const & str, char separator, bool & err) {
-        auto str_ = str;
-        removeOutterCorrespondings(str_, '(');
-        auto v = TokenizeWithAtomicDoubleQuoted(str_,
-                                                std::string(1 ,separator),
-                                                postProcessing::TRIMMED,
-                                                err);
-        v.erase(std::remove(v.begin(), v.end(), ""), v.end());
-        return v;
-    }
     
     bool before_after(std::string & input_then_before, std::string delimiter, std::string & after);
 
