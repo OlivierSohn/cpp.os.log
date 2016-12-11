@@ -282,9 +282,6 @@ namespace imajuscule
         int length = (int) text.length();
         int i = index1;
         
-        assert(i < length);
-        assert(text[i] == c1);
-        
         int countInBetween = 1;
         while (true)
         {
