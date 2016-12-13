@@ -383,7 +383,7 @@ namespace imajuscule
         str = str.substr(1, str.size()-2);
     }
     
-    bool before_after(std::string & input_then_before, std::string delimiter, std::string & after)
+    bool before_after(std::string & input_then_before, std::string const delimiter, std::string & after)
     {
         auto v = TokenizeMulti(input_then_before, delimiter, TRIMMED);
         if(v.size() == 1) {
@@ -403,6 +403,92 @@ namespace imajuscule
         input_then_before = v[0];
         after = v[1];
         return true;
+    }
+    
+    bool isCharContiguous(char c)
+    {
+        A(c != '\n'); // precondition
+        return c != ' ';
+    }
+    
+    int format_one_line(int const chars_per_line, int i, std::string & str) {
+        int line_beginning = i;
+        i += chars_per_line-1;
+        int left = -1;
+        int right = -1;
+        // find left candidate
+        for(; i >= line_beginning; --i) {
+            if(isCharContiguous(str[i])) { continue; }
+            left = i;
+            break;
+        }
+        i = line_beginning + chars_per_line;
+        // find right candidate
+        for(auto s = static_cast<int>(str.size()); i < s; ++i) {
+            if(isCharContiguous(str[i])) { continue; }
+            right = i;
+            break;
+        }
+        // pick best
+        int ideal = line_beginning + chars_per_line;
+        int chosen;
+        if(left == -1) {
+            if(right == -1) {
+                return static_cast<int>(str.size());
+            }
+            chosen = right;
+        }
+        else if(right == -1) {
+            chosen = left;
+        }
+        else {
+            if(ideal - left < right - ideal) {
+                chosen = left;
+            }
+            else {
+                chosen = right;
+            }
+        }
+        A(chosen >= 0);
+        A(chosen < static_cast<int>(str.size()));
+        
+        if(' ' == str[chosen]) {
+            str[chosen] = '\n';
+        }
+        else {
+            str.insert(chosen, 1, '\n');
+        }
+        return chosen + 1;
+    }
+    
+    std::string auto_format(std::string str, int const chars_per_line_total, std::string const line1prefix, std::string const lineNprefix) {
+        std::replace(str.begin(), str.end(), '\n', ' ');
+        int i{0};
+        while(true)
+        {
+            A(i == 0 || str[i-1] == '\n'); // assert that i is at the beginning of a line
+            
+            if(i == str.size()) {
+                return str;
+            }
+            std::string const * prefix = (i==0) ? &line1prefix : &lineNprefix;
+            
+            int chars_per_line = chars_per_line_total - prefix->size();
+
+            str.insert(str.begin() + i, prefix->begin(), prefix->end());
+            i += prefix->size();
+            // i is after the line prefix
+            if(str.size() - i <= chars_per_line) {
+                // the last part is small enough to fit on one line
+                return str;
+            }
+            if(chars_per_line < 1 ) {
+                // we cannot meet this constraint. should we use 1 for chars_per_line instead of assert + return ?
+                A(0);
+                return str;
+            }
+            i = format_one_line(chars_per_line, i, str);
+        }
     }
 }
 

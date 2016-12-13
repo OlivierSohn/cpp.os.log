@@ -207,9 +207,16 @@ namespace imajuscule
     
     template<typename ... Args>
     std::string string_format(const std::string& format, Args ... args){
-        size_t size = 1 + snprintf(nullptr, 0, format.c_str(), args ...);
+        auto size = 1 + snprintf(nullptr, 0, format.c_str(), args ...);
         std::unique_ptr<char[]> buf(new char[size]);
         snprintf(buf.get(), size, format.c_str(), args ...);
         return {buf.get()}; // snprintf null-terminates
     }
+    
+    // the number of chars per line includes the prefix
+    std::string auto_format(std::string str,
+                            int const chars_per_line,
+                            std::string const line1prefix,
+                            std::string const lineNprefix);
+    
 }
