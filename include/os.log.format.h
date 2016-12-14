@@ -155,10 +155,6 @@ namespace imajuscule
             c = std::toupper(c);
         }
     }
-    static inline std::string toLower( std::string s ) {
-        Lower(s);
-        return s;
-    }
     static inline std::string toUpper( std::string s ) {
         Upper(s);
         return s;
