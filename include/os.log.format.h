@@ -145,21 +145,6 @@ namespace imajuscule
         return s;
     }
     
-    static inline void Lower( std::string & s) {
-        for (auto & c : s) {
-            c = std::tolower(c);
-        }
-    }
-    static inline void Upper( std::string & s) {
-        for (auto & c : s) {
-            c = std::toupper(c);
-        }
-    }
-    static inline std::string toUpper( std::string s ) {
-        Upper(s);
-        return s;
-    }
-    
     enum Correspondance : unsigned char { NOT_CORRESPONDING, CORRESPONDS_BACKWARD, CORRESPONDS_FORWARD, CORRESPONDS_ANY };
 
     bool findCorrespondantLocation(std::string const & text, const char c1, const int index1, const char c2, Correspondance &, int & index2);
