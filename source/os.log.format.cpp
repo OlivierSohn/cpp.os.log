@@ -250,7 +250,27 @@ namespace imajuscule
         for (auto i = 0; (nCharacters < 0 && i < sz) || i<nCharacters; ++i) {
             if (tolower(a[i]) != tolower(b[i])) {
                 return false;
-            }            
+            }
+        }
+        return true;
+    }
+    
+    bool equals(const std::string& a, const std::string& b, int nCharacters)
+    {
+        int sz = (int)a.size();
+        if(nCharacters >= 0) {
+            if((int)b.size() < nCharacters || sz < nCharacters) {
+                return false;
+            }
+        } else {
+            if ((int)b.size() != sz) {
+                return false;
+            }
+        }
+        for (auto i = 0; (nCharacters < 0 && i < sz) || i<nCharacters; ++i) {
+            if (a[i] != b[i]) {
+                return false;
+            }
         }
         return true;
     }

@@ -27,6 +27,7 @@ namespace imajuscule
     void FormatDate(tm*time, std::string&oDate);
     void FormatDateForComparison(std::string & date);
     bool iequals(const std::string& a, const std::string& b, int nChars = -1);
+    bool equals(const std::string& a, const std::string& b, int nChars = -1);
     
     static bool isUpper(std::string const & s) {
         for(auto c : s) {
@@ -67,8 +68,13 @@ namespace imajuscule
     
     inline int begins_with(std::string const& s, std::string begin) {
         auto size_comparison = (int)begin.size();
+        return equals(std::move(begin), s, size_comparison) ? size_comparison : 0;
+    }
+    
+    inline int ibegins_with(std::string const& s, std::string begin) {
+        auto size_comparison = (int)begin.size();
         return iequals(std::move(begin), s, size_comparison) ? size_comparison : 0;
-    }    
+    }
     
     // trim from start (in place)
     inline int ltrim(std::string &s) {
