@@ -1,15 +1,3 @@
-#pragma once
-
-#include <ctime>
-#include <string>
-#include <iostream>
-#include <sstream>
-#include <vector>
-#include <functional>
-#include <algorithm>
-#include <cctype>
-#include <locale>
-#include <cassert>
 
 namespace imajuscule
 {

@@ -1,3 +1,5 @@
+#include "private.h"
+
 #include "os.log.content.cpp"
 #include "os.log.format.cpp"
 #include "os.log.stack.cpp"

@@ -1,7 +1,3 @@
-#include "os.log.format.h"
-#include "os.log.h"
-
-#include "os.log.content.h"
 
 namespace imajuscule
 {

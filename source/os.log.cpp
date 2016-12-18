@@ -1,9 +1,4 @@
-#include "os.log.h"
-#include <iostream>
 
-#ifdef __ANDROID__
-#include <android/log.h>
-#endif
 
 #define LOG_TAG "Grid3D"
 

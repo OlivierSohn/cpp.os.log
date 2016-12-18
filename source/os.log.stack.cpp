@@ -1,37 +1,4 @@
-#ifdef _WIN32
-#include <algorithm>
-#include <process.h>
-#include <iostream>
-#define NOMINMAX
-#include <Windows.h>
-#include "dbghelp.h"
-#pragma comment(lib, "Dbghelp.lib")
 
-#ifdef FILE_SEPARATOR
-#error 0
-#else
-#define FILE_SEPARATOR "\\"
-#endif
-
-#else
-
-#ifdef FILE_SEPARATOR
-#error 0
-#else
-#define FILE_SEPARATOR "/"
-#endif
-
-#include <cstdlib>
-#include <execinfo.h>
-#include <cxxabi.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-#endif
-
-#include "os.log.h"
-#include <string>
 
 #ifdef FILE_PATH_PATTERN
 #error 0

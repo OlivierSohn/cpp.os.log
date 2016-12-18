@@ -1,11 +1,10 @@
-#pragma once
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#endif
 
 #if defined ( WIN32 )
 #define __func__ __FUNCTION__
 #endif
-
-#include <stdarg.h>
-#include "os.log.stack.h"
 
 namespace imajuscule
 {
