@@ -9,7 +9,6 @@ namespace imajuscule
     std::vector<std::string> split_in_lines(const std::string &s, char delim = '\n');
 
     std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters = " ", postProcessing pp = NOT_TRIMMED);
-    std::vector<std::string> TokenizeWithAtomicDoubleQuoted(const std::string& str, const std::string& delimiters, postProcessing pp, bool & err);
     std::vector<std::string> TokenizeMulti(const std::string& str, const std::string& delimiter, postProcessing pp = NOT_TRIMMED);
     
     void FormatDate(tm*time, std::string&oDate);
@@ -17,103 +16,23 @@ namespace imajuscule
     bool iequals(const std::string& a, const std::string& b, int nChars = -1);
     bool equals(const std::string& a, const std::string& b, int nChars = -1);
     
-    static bool isUpper(std::string const & s) {
-        for(auto c : s) {
-            if(isalpha(c) && !isupper(c)) {
-                return false;
-            }
-        }
-        return true;
-    }
+    std::string alphaNum(std::string s);
     
-    template<char ... CharacterList>
-    inline bool check_characters(char c) {
-        char match_characters[sizeof...(CharacterList)] = { CharacterList... };
-        for(int i = 0; i < sizeof...(CharacterList); ++i) {
-            if(c == match_characters[i]) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    template<char ... CharacterList>
-    inline void strip_characters(std::string & str) {
-        str.erase(std::remove_if(str.begin(), str.end(), &check_characters<CharacterList...>), str.end());
-    }
-    
-    inline std::string alphaNum(std::string s) {
-        s.erase(std::remove_if(s.begin(), s.end(), std::not1(std::function<int(int)>((int(*)(int))std::isalnum))), s.end());
-        return s;
-    }
-    
-    inline std::string opposite( std::string const & s ) {
-        return "-(" + s + ")";
-    }
-    inline std::string opposite( std::string && s ) {
-        return "-(" + s + ")";
-    }
-    
-    inline int begins_with(std::string const& s, std::string begin) {
-        auto size_comparison = (int)begin.size();
-        return equals(std::move(begin), s, size_comparison) ? size_comparison : 0;
-    }
-    
-    inline int ibegins_with(std::string const& s, std::string begin) {
-        auto size_comparison = (int)begin.size();
-        return iequals(std::move(begin), s, size_comparison) ? size_comparison : 0;
-    }
+    int begins_with(std::string const& s, std::string begin);
+    int ibegins_with(std::string const& s, std::string begin);
     
     // trim from start (in place)
-    inline int ltrim(std::string &s) {
-        auto beg = s.begin();
-        auto first_non_space = std::find_if(beg, s.end(), std::not1(std::ptr_fun<int, int>(std::isspace)));
-        int range = static_cast<int>(std::distance(beg, first_non_space));
-        s.erase(beg, first_non_space);
-        return range;
-    }
+    int ltrim(std::string &s);
     
     // trim from end (in place)
-    inline void rtrim(std::string &s) {
-        s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
-    }
+    void rtrim(std::string &s);
 
     // trim from start (in place)
-    inline bool ltrim(std::string &s, char c, int maxCount = -1) {
-        int i=0;
-        int size = (int)s.size();
-        while(i!= maxCount && i < size) {
-            if(!std::isspace(s[i]) && s[i] != c) {
-                break;
-            }
-            ++i;
-        }
-        if(!i) {
-            return false;
-        }
-        s.erase(0, i);
-        return true;
-    }
+    bool ltrim(std::string &s, char c, int maxCount = -1);
     
     // trim from end (in place)
-    inline bool rtrim(std::string &s, char c, int maxCount = -1) {
-        int size = (int)s.size();
-        int i = size - 1;
-        int n=0;
-        while(n!= maxCount && i >= 0) {
-            if(!std::isspace(s[i]) && s[i] != c) {
-                break;
-            }
-            --i;
-            ++n;
-        }
-        if(!n) {
-            return false;
-        }
-        s.erase(i+1, n);
-        return true;
-    }
-
+    bool rtrim(std::string &s, char c, int maxCount = -1);
+    
     // trim from both ends (in place)
     // returns the number of characters removed on the left side
     inline int trim(std::string &s) {
@@ -149,36 +68,10 @@ namespace imajuscule
     bool before_after(std::string & input_then_before, std::string delimiter, std::string & after);
 
     inline bool isACharName(char c) {
-        if(std::isalnum(c)) {
-            return true;;
-        }
-        if(c=='_') {
-            return true;
-        }
-        return false;
+        return std::isalnum(c) || (c=='_');
     }
     
-    inline bool isAName(std::string const & name) {
-        if(name.empty()) {
-            return false;
-        }
-
-        bool first = true;
-        for(auto c : name) {
-            if(first) {
-                first = false;
-                if(std::isdigit(c)) {
-                    return false;
-                }
-            }
-            if(isACharName(c)) {
-                continue;
-            }
-            return false;
-        }
-        
-        return true;
-    }
+    bool isAName(std::string const & name);
     
     template<typename ... Args>
     std::string string_format(const std::string& format, Args ... args){
@@ -194,4 +87,8 @@ namespace imajuscule
                             std::string const line1prefix,
                             std::string const lineNprefix);
     
+    std::string plural_of_(std::string const & text);
+
+    std::string opposite_of_( std::string const & s );
+
 }

@@ -3,8 +3,11 @@ namespace imajuscule
 {
     void FormatDate(tm*time, std::string&oDate)
     {
-        if (likely(time))
-        {
+        if (!time) {
+            LG(ERR, "FormatDate: nullptr parameter time");
+            oDate.assign("..../../.. ..:..:..");
+        }
+        else {
             int zero = 0;
             int day = time->tm_mday;
             int month = time->tm_mon + 1;
@@ -45,42 +48,37 @@ namespace imajuscule
                 oDate.append(sZero.c_str());
             oDate.append(sSecond.c_str());
         }
-        else
-        {
-            LG(ERR, "FormatDate: nullptr parameter time");
-            oDate.assign("..../../.. ..:..:..");
-        }
     }
     
     void FormatDateForComparison(std::string & date)
     {
         const char * numbers = "0123456789";
         
-        if (11 < date.size())
-        {
-            if (2 == date.find_first_not_of(numbers, 0))
-            {
-                if (5 == date.find_first_not_of(numbers, 3))
-                {
-                    if (10 == date.find_first_not_of(numbers, 6))
-                    {
-                        //date is with format "dd?mm?yyyy?....." : reverse it
-                        std::string newDate;
-                        newDate.append(date.substr(6, 4));
-                        newDate.append("/");
-                        newDate.append(date.substr(3, 2));
-                        newDate.append("/");
-                        newDate.append(date.substr(0, 2));
-                        
-                        newDate.append(date.substr(10));
-                        
-                        A(newDate.size() == date.size());
-                        
-                        date.swap(newDate);
-                    }
-                }
-            }
+        if (11 >= date.size()) {
+            return;
         }
+        if (2 != date.find_first_not_of(numbers, 0)) {
+            return;
+        }
+        if (5 != date.find_first_not_of(numbers, 3)) {
+            return;
+        }
+        if (10 != date.find_first_not_of(numbers, 6)) {
+            return;
+        }
+        //date is with format "dd?mm?yyyy?....." : reverse it
+        std::string newDate;
+        newDate.append(date.substr(6, 4));
+        newDate.append("/");
+        newDate.append(date.substr(3, 2));
+        newDate.append("/");
+        newDate.append(date.substr(0, 2));
+        
+        newDate.append(date.substr(10));
+        
+        A(newDate.size() == date.size());
+        
+        date.swap(newDate);
     }
     
     void split_in_lines(const std::string &s, char delim, std::vector<std::string> &elems, postProcessing pp) {
@@ -132,48 +130,6 @@ namespace imajuscule
             lastPos = str.find_first_not_of(delimiters, pos);
             pos = str.find_first_of(delimiters, lastPos);
         }
-        
-        return tokens;
-    }
-    
-    std::vector<std::string> TokenizeWithAtomicDoubleQuoted(const std::string& str, const std::string& delimiters, postProcessing pp, bool & error)
-    {
-        error = false;
-        
-        using sz = std::string::size_type;
-        auto const end = std::string::npos;
-        
-        std::vector<std::string> tokens;
-        
-        sz lastPos = str.find_first_not_of(delimiters, 0);
-        sz pos = str.find_first_of(delimiters, lastPos);
-        
-        size_t nquotes = 0;
-        
-        while ( pos != end || lastPos != end)
-        {
-            auto prev = nquotes;
-            nquotes += std::count( str.begin() + lastPos,
-                                  pos==end? str.end() : str.begin() + pos,
-                                  '\"');
-            if(0 == (nquotes % 2)) {
-                // Found a token, add it to the vector.
-                add(tokens, str.substr(lastPos, pos - lastPos), pp);
-                lastPos = str.find_first_not_of(delimiters, pos);
-                pos = str.find_first_of(delimiters, lastPos);
-            }
-            else if(pos != end) {
-                nquotes = prev;
-                pos = str.find_first_of(delimiters, pos+1);
-            }
-            else {
-                LG(ERR, "unnmatched ' in %s", str.c_str());
-                error = true;
-                tokens.clear();
-                break;
-            }
-        }
-        
         return tokens;
     }
     
@@ -229,7 +185,6 @@ namespace imajuscule
             
             pos = str.find(delimiter, lastPos);
         }
-        
         return tokens;
     }
     
@@ -327,17 +282,14 @@ namespace imajuscule
             if(c1 == c2 && c == c1) {
                 --countInBetween;
             }
-            else if (c == c1)
-            {
+            else if (c == c1) {
                 ++countInBetween;
             }
-            else if (c == c2)
-            {
+            else if (c == c2) {
                 --countInBetween;
             }
             
-            if (0 == countInBetween)
-            {
+            if (0 == countInBetween) {
                 // found it
                 index2 = i;
                 return true;
@@ -391,6 +343,16 @@ namespace imajuscule
         return false;
     }
     
+   int begins_with(std::string const& s, std::string begin) {
+        auto size_comparison = (int)begin.size();
+        return equals(std::move(begin), s, size_comparison) ? size_comparison : 0;
+    }
+    
+    int ibegins_with(std::string const& s, std::string begin) {
+        auto size_comparison = (int)begin.size();
+        return iequals(std::move(begin), s, size_comparison) ? size_comparison : 0;
+    }
+    
     void removeOutterDoubleQuotes(std::string & str) {
         if(str.size() < 2) {
             return;
@@ -399,6 +361,56 @@ namespace imajuscule
             return;
         }
         str = str.substr(1, str.size()-2);
+    }
+    
+    void rtrim(std::string &s) {
+        s.erase(std::find_if(s.rbegin(),
+                             s.rend(),
+                             std::not1(std::ptr_fun<int, int>(std::isspace))
+                             ).base(),
+                s.end());
+    }
+    
+    int ltrim(std::string &s) {
+        auto beg = s.begin();
+        auto first_non_space = std::find_if(beg, s.end(), std::not1(std::ptr_fun<int, int>(std::isspace)));
+        int range = static_cast<int>(std::distance(beg, first_non_space));
+        s.erase(beg, first_non_space);
+        return range;
+    }
+    
+    bool rtrim(std::string &s, char c, int maxCount) {
+        int size = (int)s.size();
+        int i = size - 1;
+        int n=0;
+        while(n!= maxCount && i >= 0) {
+            if(!std::isspace(s[i]) && s[i] != c) {
+                break;
+            }
+            --i;
+            ++n;
+        }
+        if(!n) {
+            return false;
+        }
+        s.erase(i+1, n);
+        return true;
+    }
+    
+    bool ltrim(std::string &s, char c, int maxCount) {
+        int size = (int)s.size();
+        int i=0;
+        while(i!= maxCount && i < size) {
+            if(!std::isspace(s[i]) && s[i] != c) {
+                break;
+            }
+            ++i;
+        }
+        if(!i) {
+            return false;
+        }
+        s.erase(0, i);
+        return true;
     }
     
     bool before_after(std::string & input_then_before, std::string const delimiter, std::string & after)
@@ -428,6 +440,29 @@ namespace imajuscule
         A(c != '\n'); // precondition
         return c != ' ';
     }
+    
+    bool isAName(std::string const & name) {
+        if(name.empty()) {
+            return false;
+        }
+        
+        bool first = true;
+        for(auto c : name) {
+            if(first) {
+                first = false;
+                if(std::isdigit(c)) {
+                    return false;
+                }
+            }
+            if(isACharName(c)) {
+                continue;
+            }
+            return false;
+        }
+        
+        return true;
+    }
+
     
     int format_one_line(int const chars_per_line, int i, std::string & str) {
         int line_beginning = i;
@@ -507,6 +542,19 @@ namespace imajuscule
             }
             i = format_one_line(chars_per_line, i, str);
         }
+    }
+    
+    std::string plural_of_(std::string const & text) {
+        return text.empty() ? text : (text + "s");
+    }
+    
+    std::string opposite_of_( std::string const & s ) {
+        return "-(" + s + ")";
+    }
+
+    std::string alphaNum(std::string s) {
+        s.erase(std::remove_if(s.begin(), s.end(), std::not1(std::function<int(int)>((int(*)(int))std::isalnum))), s.end());
+        return s;
     }
 }
 
