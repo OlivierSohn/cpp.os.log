@@ -58,8 +58,10 @@ namespace imajuscule
 		switch (level)
 		{
 		default:
-		case INFO:
-			return "INFO|";
+            case SCRIPT:
+            return "SCRIPT|";
+            case INFO:
+            return "INFO|";
 		case ERR:
 			return "ERR|";
 		case WARN:

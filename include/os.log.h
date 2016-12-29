@@ -10,9 +10,10 @@ namespace imajuscule
 {
 typedef enum logLevel
 {
+    SCRIPT = 1,
     INFO,
     WARN,
-    ERR
+    ERR = 0
 }logLevel;
 
 void LG(logLevel, /*const char* sModule,*/ const char * format, ...);

@@ -1,6 +1,5 @@
 #pragma once
 
-// stl
 #include <algorithm>
 #include <cassert>
 #include <cctype>
@@ -13,7 +12,8 @@
 #include <string>
 #include <vector>
 
-// this module
+#include "../../algorithms/include/public.h"
+
 #include "os.log.h"
 #include "os.log.content.h"
 #include "os.log.format.h"
