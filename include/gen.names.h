@@ -64,7 +64,7 @@ namespace imajuscule {
         using char_gen = charNameIterator<C>;
 
         UniqueNames()
-        : name(1, static_cast<char>(char_gen::first()))
+        : name(1, safe_cast<char>(char_gen::first()))
         {}
         
         static UniqueNames & getInstance() {

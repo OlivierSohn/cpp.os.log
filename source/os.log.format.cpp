@@ -238,7 +238,7 @@ namespace imajuscule
                 correspondance = CORRESPONDS_BACKWARD;
                 auto other = text.find_last_of(c2, index1-1);
                 A(other != std::string::npos);
-                index2 = static_cast<int>(other);
+                index2 = safe_cast<int>(other);
             }
             else {
                 // even : c1 is the opening one
@@ -247,7 +247,7 @@ namespace imajuscule
                 if(other == std::string::npos) {
                     return false;
                 }
-                index2 = static_cast<int>(other);
+                index2 = safe_cast<int>(other);
             }
             return true;
         }
@@ -374,7 +374,7 @@ namespace imajuscule
     int ltrim(std::string &s) {
         auto beg = s.begin();
         auto first_non_space = std::find_if(beg, s.end(), std::not1(std::ptr_fun<int, int>(std::isspace)));
-        int range = static_cast<int>(std::distance(beg, first_non_space));
+        int range = safe_cast<int>(std::distance(beg, first_non_space));
         s.erase(beg, first_non_space);
         return range;
     }
@@ -477,7 +477,7 @@ namespace imajuscule
         }
         i = line_beginning + chars_per_line;
         // find right candidate
-        for(auto s = static_cast<int>(str.size()); i < s; ++i) {
+        for(auto s = safe_cast<int>(str.size()); i < s; ++i) {
             if(isCharContiguous(str[i])) { continue; }
             right = i;
             break;
@@ -487,7 +487,7 @@ namespace imajuscule
         int chosen;
         if(left == -1) {
             if(right == -1) {
-                return static_cast<int>(str.size());
+                return safe_cast<int>(str.size());
             }
             chosen = right;
         }
@@ -503,7 +503,7 @@ namespace imajuscule
             }
         }
         A(chosen >= 0);
-        A(chosen < static_cast<int>(str.size()));
+        A(chosen < safe_cast<int>(str.size()));
         
         if(' ' == str[chosen]) {
             str[chosen] = '\n';
