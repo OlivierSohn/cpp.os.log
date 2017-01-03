@@ -91,5 +91,9 @@ namespace imajuscule
     std::string plural_of_(std::string const & text);
 
     std::string opposite_of_( std::string const & s );
-
+    
+    template<typename T, typename ...Args>
+    T lines(Args... args) {
+        return {{ (std::string(args) + '\n') }...};
+    }
 }
