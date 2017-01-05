@@ -28,7 +28,7 @@ namespace imajuscule
     void rtrim(std::string &s);
 
     // trim from start (in place)
-    bool ltrim(std::string &s, char c, int maxCount = -1);
+    int ltrim(std::string &s, char c, int maxCount = -1);
     
     // trim from end (in place)
     bool rtrim(std::string &s, char c, int maxCount = -1);

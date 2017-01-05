@@ -397,7 +397,7 @@ namespace imajuscule
         return true;
     }
     
-    bool ltrim(std::string &s, char c, int maxCount) {
+    int ltrim(std::string &s, char c, int maxCount) {
         int size = (int)s.size();
         int i=0;
         while(i!= maxCount && i < size) {
@@ -407,10 +407,10 @@ namespace imajuscule
             ++i;
         }
         if(!i) {
-            return false;
+            return 0;
         }
         s.erase(0, i);
-        return true;
+        return i;
     }
     
     bool before_after(std::string & input_then_before, std::string const delimiter, std::string & after)
