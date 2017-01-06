@@ -76,8 +76,7 @@ namespace imajuscule
     template<typename ... Args>
     std::string string_format(const std::string& format, Args ... args){
         auto size = 1 + snprintf(nullptr, 0, format.c_str(), args ...);
-        pool::vector<char> buf;
-        buf.resize(size);
+        StaticVector<char> buf(size);
         snprintf(buf.data(), size, format.c_str(), args ...);
         return {buf.data()}; // snprintf null-terminates
     }
