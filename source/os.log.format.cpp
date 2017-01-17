@@ -435,7 +435,7 @@ namespace imajuscule
         return true;
     }
     
-    bool isCharContiguous(char c)
+    static bool isCharContiguous(char c)
     {
         A(c != '\n'); // precondition
         return c != ' ';
