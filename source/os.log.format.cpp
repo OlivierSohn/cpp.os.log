@@ -1,10 +1,37 @@
 
 namespace imajuscule
 {
+    void AppendTime(tm*time, std::string&str) {
+        str.reserve(str.size() + 8);
+        
+        if (!time) {
+            str += "..:..:..";
+            return;
+        }
+
+        auto sHour = std::to_string(time->tm_hour);
+        auto sMinute = std::to_string(time->tm_min);
+        auto sSecond = std::to_string(time->tm_sec);
+
+        if (time->tm_hour < 10) {
+            str += '0';
+        }
+        str += sHour;
+        str += ':';
+        if (time->tm_min < 10) {
+            str += '0';
+        }
+        str += sMinute;
+        str += ':';
+        if (time->tm_sec < 10) {
+            str += '0';
+        }
+        str += sSecond;
+    }
+    
     void FormatDate(tm*time, std::string&oDate)
     {
         if (!time) {
-            LG(ERR, "FormatDate: nullptr parameter time");
             oDate.assign("..../../.. ..:..:..");
         }
         else {
@@ -16,9 +43,6 @@ namespace imajuscule
             auto sDay = std::to_string(day);
             auto sMonth = std::to_string(month);
             auto sYear = std::to_string(year);
-            auto sHour = std::to_string(time->tm_hour);
-            auto sMinute = std::to_string(time->tm_min);
-            auto sSecond = std::to_string(time->tm_sec);
             
             oDate.append(sYear.c_str());
             
@@ -36,17 +60,7 @@ namespace imajuscule
             
             oDate.append(" ");
             
-            if (time->tm_hour < 10)
-                oDate.append(sZero.c_str());
-            oDate.append(sHour.c_str());
-            oDate.append(":");
-            if (time->tm_min < 10)
-                oDate.append(sZero.c_str());
-            oDate.append(sMinute.c_str());
-            oDate.append(":");
-            if (time->tm_sec < 10)
-                oDate.append(sZero.c_str());
-            oDate.append(sSecond.c_str());
+            AppendTime(time, oDate);
         }
     }
     

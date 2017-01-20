@@ -32,24 +32,51 @@ namespace imajuscule
 
 	const char * levelToChar(logLevel level);
 
+    int getThreadId() {
+        auto tid = pthread_self();
+        static std::vector<void*> threads;
+        auto it = std::find(threads.begin(), threads.end(), tid);
+        int thread_index;
+        if (unlikely(it == threads.end()))
+        {
+            threads.push_back(tid);
+            return threads.size();
+        }
+        return std::distance(threads.begin(), it);
+    }
+    
 	void LG(logLevel level, /*const char* sModule,*/ const char * format, ...)
 	{
+        va_list args;
 #ifdef __ANDROID__
-		va_list args;
-
 		va_start(args, format);
 		__android_log_vprint(toAndroid(level), LOG_TAG, format, args);
 		va_end(args);
 #else
-		fprintf(((level == ERR) ? stderr : stdout), levelToChar(level));
-
-		va_list args;
-
 		va_start(args, format);
-		vfprintf(((level == ERR) ? stderr : stdout), format, args);
+        auto size = vsnprintf(nullptr, 0, format, args);
 		va_end(args);
+        
+        auto thread_index = getThreadId();
 
-		fprintf(((level == ERR) ? stderr : stdout), "\n");
+        // to use a StackVector here we would need to have
+        // one "stack" pool per thread
+        std::string v;
+        v.resize(size+1);
+        
+        va_start(args, format);
+        vsnprintf(&v[0], size+1, format, args);
+        va_end(args);
+        
+        std::string strTime;
+        AppendTime(strTime);
+        
+        fprintf(((level == ERR) ? stderr : stdout),
+                "%s|%d|%s|%s\n",
+                strTime.c_str(),
+                thread_index,
+                levelToChar(level),
+                v.data());
 #endif
 	}
 
@@ -59,13 +86,13 @@ namespace imajuscule
 		{
 		default:
             case SCRIPT:
-            return "SCRIPT|";
+            return "SCRIPT";
             case INFO:
-            return "INFO|";
+            return "INFO";
 		case ERR:
-			return "ERR|";
+			return "ERR";
 		case WARN:
-			return "WARN|";
+			return "WARN";
 		}
 	}
 	// FOR LATER:

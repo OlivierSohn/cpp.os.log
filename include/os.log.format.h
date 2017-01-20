@@ -10,9 +10,34 @@ namespace imajuscule
 
     std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters = " ", postProcessing pp = NOT_TRIMMED);
     std::vector<std::string> TokenizeMulti(const std::string& str, const std::string& delimiter, postProcessing pp = NOT_TRIMMED);
-    
+
+    static auto getTime() {
+        time_t result;
+        result = time(nullptr);
+        
+        struct tm * pTime = nullptr;
+#ifdef _WIN32
+        static struct tm time;
+        pTime = &time;
+        localtime_s(pTime, &result);
+#else
+        pTime = localtime(&result);
+#endif
+        return pTime;
+    }
+
     void FormatDate(tm*time, std::string&oDate);
     void FormatDateForComparison(std::string & date);
+    void AppendTime(tm*time, std::string&str);
+
+    static inline void WriteCurrentDate(std::string & str) {
+        FormatDate(getTime(), str);
+    }
+    
+    static inline void AppendTime(std::string & str) {
+        AppendTime(getTime(), str);
+    }
+    
     bool iequals(const std::string& a, const std::string& b, int nChars = -1);
     bool equals(const std::string& a, const std::string& b, int nChars = -1);
     
