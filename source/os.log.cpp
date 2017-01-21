@@ -34,7 +34,7 @@ namespace imajuscule
 
     int getThreadId() {
         auto tid = pthread_self();
-        static std::vector<void*> threads;
+        static std::vector<decltype(tid)> threads;
         auto it = std::find(threads.begin(), threads.end(), tid);
         int thread_index;
         if (unlikely(it == threads.end()))
