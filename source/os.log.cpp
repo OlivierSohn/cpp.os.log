@@ -32,17 +32,28 @@ namespace imajuscule
 
 	const char * levelToChar(logLevel level);
 
-    int getThreadId() {
+    struct ThreadData {
+        ThreadData(size_t idx) : idx(idx) {}
+        std::string str;
+        size_t idx;
+    };
+
+    static int getThreadIndex(ThreadData *& data) {
         auto tid = pthread_self();
-        static std::vector<decltype(tid)> threads;
-        auto it = std::find(threads.begin(), threads.end(), tid);
+        static std::map<decltype(pthread_self()), ThreadData> threads;
+        auto it = threads.find(tid);
         int thread_index;
         if (unlikely(it == threads.end()))
         {
-            threads.push_back(tid);
-            return threads.size();
+            // problem if multiple threads insert at the same time, or if one inserts
+            // and the other ones finds
+            auto it = threads.emplace(tid, threads.size());
+            data = &it.first->second;
         }
-        return std::distance(threads.begin(), it);
+        else {
+            data = &it->second;
+        }
+        return data->idx;
     }
     
 	void LG(logLevel level, /*const char* sModule,*/ const char * format, ...)
@@ -57,11 +68,12 @@ namespace imajuscule
         auto size = vsnprintf(nullptr, 0, format, args);
 		va_end(args);
         
-        auto thread_index = getThreadId();
+        ThreadData * data;
+        auto thread_index = getThreadIndex(data);
 
         // to use a StackVector here we would need to have
         // one "stack" pool per thread
-        std::string v;
+        std::string & v = data->str;
         v.resize(size+1);
         
         va_start(args, format);
