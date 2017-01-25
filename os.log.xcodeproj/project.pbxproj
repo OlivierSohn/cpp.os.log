@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		097663F71AD35C5A0099DA54 /* os.log.format.h in Headers */ = {isa = PBXBuildFile; fileRef = 097663EC1AD35C5A0099DA54 /* os.log.format.h */; };
 		097663F81AD35C5A0099DA54 /* os.log.h in Headers */ = {isa = PBXBuildFile; fileRef = 097663ED1AD35C5A0099DA54 /* os.log.h */; };
 		097834981D4D52EF00E47ED3 /* gen.names.h in Headers */ = {isa = PBXBuildFile; fileRef = 097834971D4D52EF00E47ED3 /* gen.names.h */; };
 		0978349D1D5797B600E47ED3 /* unity.build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0978349C1D5797B600E47ED3 /* unity.build.cpp */; };
@@ -29,10 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		097663EC1AD35C5A0099DA54 /* os.log.format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.format.h; sourceTree = "<group>"; };
 		097663ED1AD35C5A0099DA54 /* os.log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.h; sourceTree = "<group>"; };
 		097663F01AD35C5A0099DA54 /* os.log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.cpp; sourceTree = "<group>"; };
-		097663F11AD35C5A0099DA54 /* os.log.format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.format.cpp; sourceTree = "<group>"; };
 		097834971D4D52EF00E47ED3 /* gen.names.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = gen.names.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		097834991D4D532F00E47ED3 /* gen.names.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = gen.names.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		0978349C1D5797B600E47ED3 /* unity.build.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unity.build.cpp; sourceTree = "<group>"; };
@@ -82,7 +79,6 @@
 				09A1496C1E056CB300B16258 /* public.h */,
 				097834971D4D52EF00E47ED3 /* gen.names.h */,
 				09BE53B71D3DB24900FACF5C /* os.log.content.h */,
-				097663EC1AD35C5A0099DA54 /* os.log.format.h */,
 				097663ED1AD35C5A0099DA54 /* os.log.h */,
 				09F01F6B1B831417000DEA13 /* os.log.stack.h */,
 			);
@@ -96,7 +92,6 @@
 				097834991D4D532F00E47ED3 /* gen.names.cpp */,
 				09BE53B41D3DB23F00FACF5C /* os.log.content.cpp */,
 				097663F01AD35C5A0099DA54 /* os.log.cpp */,
-				097663F11AD35C5A0099DA54 /* os.log.format.cpp */,
 				09F01F681B83140D000DEA13 /* os.log.stack.cpp */,
 				0978349C1D5797B600E47ED3 /* unity.build.cpp */,
 			);
@@ -157,7 +152,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				097834981D4D52EF00E47ED3 /* gen.names.h in Headers */,
-				097663F71AD35C5A0099DA54 /* os.log.format.h in Headers */,
 				09BE53B81D3DB24900FACF5C /* os.log.content.h in Headers */,
 				097663F81AD35C5A0099DA54 /* os.log.h in Headers */,
 				09F01F6C1B831417000DEA13 /* os.log.stack.h in Headers */,
