@@ -42,7 +42,6 @@ namespace imajuscule
         auto tid = pthread_self();
         static std::map<decltype(pthread_self()), ThreadData> threads;
         auto it = threads.find(tid);
-        int thread_index;
         if (unlikely(it == threads.end()))
         {
             // problem if multiple threads insert at the same time, or if one inserts
