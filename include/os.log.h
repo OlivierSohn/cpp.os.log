@@ -80,25 +80,4 @@ with the advantage that :
         LG(INFO, "%s %.3f %.3f %.3f %.3f", message, coords[0], coords[1], coords[2], coords[3]);
     }
     
-    template<typename T>
-    class ScopedIndent {
-    public:
-        ScopedIndent(T & ref) : ref(ref) {
-            ref.addIndent();
-        }
-        ~ScopedIndent() {
-            ref.removeIndent();
-        }
-    private:
-        T & ref;
-    };
-    
-    struct ScopedLog {
-        ScopedLog(const char * action, const char * str) : action(action) {
-            std::cout << "--> " << action << " " << str << " ... " << std::endl;
-        }
-        ~ScopedLog() {std::cout << "--> " << action << " Done" << std::endl;}
-    private:
-        const char * action;
-    };
 }
