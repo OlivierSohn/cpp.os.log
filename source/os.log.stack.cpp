@@ -65,9 +65,9 @@ namespace imajuscule
     }
     
     std::cout << std::endl
-    << lineS << std::endl
-    << Footer << std::endl
     << pipesS << std::endl
+    << Footer << std::endl
+    << lineS << std::endl
     << std::endl;
     
 #endif
