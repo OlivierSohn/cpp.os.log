@@ -48,24 +48,16 @@ namespace imajuscule
     return;
 #else
     
-    const char * line =   "   o___.__o______o_____._______________o___o_____._________o_o______._o__._________o_.______.___o_o";
-    const char * lin =    "   o                                                                                              o";
-    const char * lineS =  " o  ______________________________________________________________________________________________  o";
-    const char * pipes =  " o                                                                                                  o";
-    const char * pipes2 = "    o                                                                                            o";
-    const char * Header = "O                                          STACK BEGIN                                               O";
-    const char * Footer = "O           .                              STACK END          o                .                     O";
-    const char * pip =    "O                                                                                                    O";
-    const char * pipesU = "o __________________________________________________________________________________________________ o";
-    const char * st =     " o                                                                                                  o";
-    const char * pipesS = " O ___ o ____ . ____ o ________________._________________ O _______________ o _________._____ o ___ O ";
+    const char * lineS =  "    ----------------------------------------------------------------------------------------------";
+    const char * Header = "                                           STACK BEGIN";
+    const char * Footer = "                                           STACK END";
+    const char * pipesS = "------------------------------------------------------------------------------------------------------";
 
     std::cout << std::endl
-    << line << std::endl
-    << pipes << std::endl
+    << lineS << std::endl
     << Header << std::endl
-    << pipesU << std::endl
-    << st << std::endl << std::endl;
+    << pipesS << std::endl
+    << std::endl;
     
     constexpr auto n_remove = 1; // for this function
     for(auto & t : debugging::getProgramStack(n_remove)) {
@@ -73,12 +65,10 @@ namespace imajuscule
     }
     
     std::cout << std::endl
-    << pipes2 << std::endl
-    << pipesS << std::endl
-    << pip << std::endl
-    << Footer << std::endl
     << lineS << std::endl
-    << lin << std::endl << std::endl;
+    << Footer << std::endl
+    << pipesS << std::endl
+    << std::endl;
     
 #endif
 
