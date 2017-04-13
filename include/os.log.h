@@ -43,14 +43,6 @@ with the advantage that :
 #define ASSERT_ERR_LOG(x) ERR_LOG(x,assert)
 #define ASSERT_ERR(x) do{ASSERT_ERR_LOG(x); ASSERT__THROW;}while(0)
 
-#ifdef _MSC_VER
-#define likely(x)  x
-#define unlikely(x) x
-#else
-#define likely(x)      __builtin_expect(!!(x), 1)
-#define unlikely(x)    __builtin_expect(!!(x), 0)
-#endif
-
 #ifndef NDEBUG
 #define if_A(x) if(unlikely(!(x))) ASSERT_ERR(x); else
 #else
