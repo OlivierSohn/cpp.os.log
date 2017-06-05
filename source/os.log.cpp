@@ -79,12 +79,10 @@ namespace imajuscule
         vsnprintf(&v[0], size+1, format, args);
         va_end(args);
         
-        std::string strTime;
-        AppendTime(strTime);
+        print_system_time();
         
         fprintf(((level == ERR) ? stderr : stdout),
-                "%s|%d|%s|%s\n",
-                strTime.c_str(),
+                "%d|%s|%s\n",
                 thread_index,
                 levelToChar(level),
                 v.data());
