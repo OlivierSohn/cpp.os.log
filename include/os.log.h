@@ -27,7 +27,7 @@ logStack(); \
 #define C(x) if(!(x)) {ERR_LOG(x,check);} else do{}while(0)
 
 /* 
-"A" is used to replace "assert(x)" with "A(x)"
+"A" is used to replace "assert(x)" with "Assert(x)"
 
 with the advantage that :
 - a comprehensive error message is logged, and the stack is available in debugger (not always the case with assert)
@@ -50,9 +50,9 @@ with the advantage that :
 #endif
 
 #ifndef NDEBUG
-#define A(x) if_A(x) do {} while ( 0 )
+#define Assert(x) if_A(x) do {} while ( 0 )
 #else
-#define A(x) do {} while ( 0 )
+#define Assert(x) do {} while ( 0 )
 #endif
 
     struct Logger {

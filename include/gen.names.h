@@ -35,8 +35,8 @@ namespace imajuscule {
         }
         
         static char next(unsigned char v) {
-            A(v >= first());
-            A(v <= last());
+            Assert(v >= first());
+            Assert(v <= last());
             if(v == ord<'9'>) {
                 return (C == LowerCase) ? ord<'_'> : ord<'A'>;
             }
