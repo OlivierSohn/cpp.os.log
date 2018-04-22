@@ -21,14 +21,6 @@ namespace imajuscule
 	}
 #endif
 
-	static void LG(logLevel level, /*const char* sModule,*/ const char * txt)
-	{
-#ifdef __ANDROID__
-#ifndef NDEBUG
-		__android_log_write(toAndroid(level), LOG_TAG, txt);
-#endif
-#endif
-	}
 
 	const char * levelToChar(logLevel level);
 
@@ -54,7 +46,7 @@ namespace imajuscule
         }
         return data->idx;
     }
-    
+
 	void LG(logLevel level, /*const char* sModule,*/ const char * format, ...)
 	{
         va_list args;
@@ -66,7 +58,7 @@ namespace imajuscule
 		va_start(args, format);
         auto size = vsnprintf(nullptr, 0, format, args);
 		va_end(args);
-        
+
         ThreadData * data;
         auto thread_index = getThreadIndex(data);
 
@@ -74,13 +66,13 @@ namespace imajuscule
         // one "stack" pool per thread
         std::string & v = data->str;
         v.resize(size+1);
-        
+
         va_start(args, format);
         vsnprintf(&v[0], size+1, format, args);
         va_end(args);
-        
+
         print_system_time();
-        
+
         fprintf(((level == ERR) ? stderr : stdout),
                 "%d|%s|%s\n",
                 thread_index,
