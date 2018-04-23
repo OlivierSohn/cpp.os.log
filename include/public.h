@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-#include "../../algorithms/include/public.h"
+#include "../../cpp.algorithms/include/public.h"
 
 #include "os.log.h"
 #include "os.log.content.h"
