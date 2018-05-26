@@ -260,7 +260,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 09C84A581C271DB2002CF5B7 /* osx.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 			};
 			name = Debug;
 		};
@@ -268,7 +267,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 09C84A5C1C271DB2002CF5B7 /* osx.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 			};
 			name = Release;
 		};
