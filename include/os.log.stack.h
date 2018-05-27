@@ -1,5 +1,0 @@
-
-namespace imajuscule
-{
-	void logStack();
-}
