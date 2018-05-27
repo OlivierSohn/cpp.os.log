@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		097663F81AD35C5A0099DA54 /* os.log.h in Headers */ = {isa = PBXBuildFile; fileRef = 097663ED1AD35C5A0099DA54 /* os.log.h */; };
-		097834981D4D52EF00E47ED3 /* gen.names.h in Headers */ = {isa = PBXBuildFile; fileRef = 097834971D4D52EF00E47ED3 /* gen.names.h */; };
 		0978349D1D5797B600E47ED3 /* unity.build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0978349C1D5797B600E47ED3 /* unity.build.cpp */; };
 		0978349E1D5797B600E47ED3 /* unity.build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0978349C1D5797B600E47ED3 /* unity.build.cpp */; };
-		09F01F6C1B831417000DEA13 /* os.log.stack.h in Headers */ = {isa = PBXBuildFile; fileRef = 09F01F6B1B831417000DEA13 /* os.log.stack.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,8 +27,6 @@
 /* Begin PBXFileReference section */
 		097663ED1AD35C5A0099DA54 /* os.log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.h; sourceTree = "<group>"; };
 		097663F01AD35C5A0099DA54 /* os.log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.cpp; sourceTree = "<group>"; };
-		097834971D4D52EF00E47ED3 /* gen.names.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = gen.names.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		097834991D4D532F00E47ED3 /* gen.names.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = gen.names.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		0978349C1D5797B600E47ED3 /* unity.build.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unity.build.cpp; sourceTree = "<group>"; };
 		09A1496C1E056CB300B16258 /* public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = public.h; sourceTree = "<group>"; };
 		09A1496D1E056E8C00B16258 /* private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = private.h; sourceTree = "<group>"; };
@@ -48,8 +44,7 @@
 		09C84A5E1C271DB2002CF5B7 /* Project.Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.Debug.xcconfig; sourceTree = "<group>"; };
 		09C84A5F1C271DB2002CF5B7 /* Project.Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.Release.xcconfig; sourceTree = "<group>"; };
 		09C84A601C271DB2002CF5B7 /* Project.Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.Shared.xcconfig; sourceTree = "<group>"; };
-		09F01F681B83140D000DEA13 /* os.log.stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.stack.cpp; sourceTree = "<group>"; };
-		09F01F6B1B831417000DEA13 /* os.log.stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.stack.h; sourceTree = "<group>"; };
+		09FC7DF020BAD9390037B04C /* defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,10 +68,9 @@
 		097663EA1AD35C5A0099DA54 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				09FC7DF020BAD9390037B04C /* defines.h */,
 				09A1496C1E056CB300B16258 /* public.h */,
-				097834971D4D52EF00E47ED3 /* gen.names.h */,
 				097663ED1AD35C5A0099DA54 /* os.log.h */,
-				09F01F6B1B831417000DEA13 /* os.log.stack.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -85,9 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				09A1496D1E056E8C00B16258 /* private.h */,
-				097834991D4D532F00E47ED3 /* gen.names.cpp */,
 				097663F01AD35C5A0099DA54 /* os.log.cpp */,
-				09F01F681B83140D000DEA13 /* os.log.stack.cpp */,
 				0978349C1D5797B600E47ED3 /* unity.build.cpp */,
 			);
 			path = source;
@@ -146,9 +138,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				097834981D4D52EF00E47ED3 /* gen.names.h in Headers */,
 				097663F81AD35C5A0099DA54 /* os.log.h in Headers */,
-				09F01F6C1B831417000DEA13 /* os.log.stack.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

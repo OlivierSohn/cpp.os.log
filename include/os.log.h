@@ -6,58 +6,49 @@
 #define __func__ __FUNCTION__
 #endif
 
-namespace imajuscule
-{
-typedef enum logLevel
-{
-    SCRIPT = 1,
-    INFO,
-    WARN,
-    ERR = 0
-}logLevel;
+namespace imajuscule {
+    typedef enum logLevel
+    {
+        SCRIPT = 1,
+        INFO,
+        WARN,
+        ERR = 0
+    }logLevel;
 
-void LG(logLevel, /*const char* sModule,*/ const char * format, ...);
-
-#define ERR_LOG(x,type) do{ \
-LG(ERR, "%s : ' %s '\n   |in %s\n   |(%s,%d)", #type, #x, __func__, __FILE__, __LINE__ ); \
-logStack(); \
-} while(0)
-
-// "soft" Assert
-#define C(x) if(!(x)) {ERR_LOG(x,check);} else do{}while(0)
-
-/*
-"A" is used to replace "assert(x)" with "Assert(x)"
-
-with the advantage that :
-- a comprehensive error message is logged, and the stack is available in debugger (not always the case with assert)
-- in release, code execution is not broken but an error message is logged
-*/
-
-#ifndef NDEBUG
-#define ASSERT__THROW do{throw;}while(0)
-#else
-#define ASSERT__THROW do{}while(0)
-#endif
-
-#define ASSERT_ERR_LOG(x) ERR_LOG(x,assert)
-#define ASSERT_ERR(x) do{ASSERT_ERR_LOG(x); ASSERT__THROW;}while(0)
-
-#ifndef NDEBUG
-#define if_A(x) if(unlikely(!(x))) ASSERT_ERR(x); else
-#else
-#define if_A(x)
-#endif
-
-#ifndef NDEBUG
-#define Assert(x) if_A(x) do {} while ( 0 )
-#else
-#define Assert(x) do {} while ( 0 )
-#endif
+    void LG(logLevel, /*const char* sModule,*/ const char * format, ...);
 
     template <class T>
     void logCoords(const char * message, const T & coords) {
         LG(INFO, "%s %.3f %.3f %.3f", message, coords[0], coords[1], coords[2]);
     }
 
+    template<typename T>
+    void print_time(std::chrono::time_point<T> time) {
+        using namespace std;
+        using namespace std::chrono;
+        
+        time_t curr_time = T::to_time_t(time);
+        char sRep[100];
+        // if needed use %Y-%m-%d for year / month / date
+        strftime(sRep,sizeof(sRep),"%H:%M:%S",localtime(&curr_time));
+        
+        typename T::duration since_epoch = time.time_since_epoch();
+        seconds s = duration_cast<seconds>(since_epoch);
+        since_epoch -= s;
+        milliseconds milli = duration_cast<milliseconds>(since_epoch);
+        
+        cout << sRep << ":";
+        auto c = milli.count();
+        if(c < 100) {
+            std::cout << "0";
+        }
+        if(c < 10) {
+            std::cout << "0";
+        }
+        std::cout << c << "|";
+    }
+    
+    static inline void print_system_time() {
+        print_time(std::chrono::system_clock::now());
+    }
 }
