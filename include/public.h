@@ -13,5 +13,4 @@
 #include <vector>
 
 #include "os.log.h"
-#include "os.log.content.h"
 #include "os.log.stack.h"

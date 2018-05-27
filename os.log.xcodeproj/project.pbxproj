@@ -11,7 +11,6 @@
 		097834981D4D52EF00E47ED3 /* gen.names.h in Headers */ = {isa = PBXBuildFile; fileRef = 097834971D4D52EF00E47ED3 /* gen.names.h */; };
 		0978349D1D5797B600E47ED3 /* unity.build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0978349C1D5797B600E47ED3 /* unity.build.cpp */; };
 		0978349E1D5797B600E47ED3 /* unity.build.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0978349C1D5797B600E47ED3 /* unity.build.cpp */; };
-		09BE53B81D3DB24900FACF5C /* os.log.content.h in Headers */ = {isa = PBXBuildFile; fileRef = 09BE53B71D3DB24900FACF5C /* os.log.content.h */; };
 		09F01F6C1B831417000DEA13 /* os.log.stack.h in Headers */ = {isa = PBXBuildFile; fileRef = 09F01F6B1B831417000DEA13 /* os.log.stack.h */; };
 /* End PBXBuildFile section */
 
@@ -35,8 +34,6 @@
 		0978349C1D5797B600E47ED3 /* unity.build.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unity.build.cpp; sourceTree = "<group>"; };
 		09A1496C1E056CB300B16258 /* public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = public.h; sourceTree = "<group>"; };
 		09A1496D1E056E8C00B16258 /* private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = private.h; sourceTree = "<group>"; };
-		09BE53B41D3DB23F00FACF5C /* os.log.content.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.log.content.cpp; sourceTree = "<group>"; };
-		09BE53B71D3DB24900FACF5C /* os.log.content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.log.content.h; sourceTree = "<group>"; };
 		09C559E819C8008700879A96 /* libos.log.osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libos.log.osx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C559F319C800F200879A96 /* libos.log.ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libos.log.ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C559F519C800F200879A96 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -78,7 +75,6 @@
 			children = (
 				09A1496C1E056CB300B16258 /* public.h */,
 				097834971D4D52EF00E47ED3 /* gen.names.h */,
-				09BE53B71D3DB24900FACF5C /* os.log.content.h */,
 				097663ED1AD35C5A0099DA54 /* os.log.h */,
 				09F01F6B1B831417000DEA13 /* os.log.stack.h */,
 			);
@@ -90,7 +86,6 @@
 			children = (
 				09A1496D1E056E8C00B16258 /* private.h */,
 				097834991D4D532F00E47ED3 /* gen.names.cpp */,
-				09BE53B41D3DB23F00FACF5C /* os.log.content.cpp */,
 				097663F01AD35C5A0099DA54 /* os.log.cpp */,
 				09F01F681B83140D000DEA13 /* os.log.stack.cpp */,
 				0978349C1D5797B600E47ED3 /* unity.build.cpp */,
@@ -152,7 +147,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				097834981D4D52EF00E47ED3 /* gen.names.h in Headers */,
-				09BE53B81D3DB24900FACF5C /* os.log.content.h in Headers */,
 				097663F81AD35C5A0099DA54 /* os.log.h in Headers */,
 				09F01F6C1B831417000DEA13 /* os.log.stack.h in Headers */,
 			);
