@@ -26,7 +26,7 @@ logStack(); \
 // "soft" Assert
 #define C(x) if(!(x)) {ERR_LOG(x,check);} else do{}while(0)
 
-/* 
+/*
 "A" is used to replace "assert(x)" with "Assert(x)"
 
 with the advantage that :
@@ -55,16 +55,9 @@ with the advantage that :
 #define Assert(x) do {} while ( 0 )
 #endif
 
-    struct Logger {
-        template <class... Args>
-        static void err(Args&&... args) {
-            LG(ERR, string_format(std::forward<Args>(args)...).c_str());
-        }
-    };
-
     template <class T>
     void logCoords(const char * message, const T & coords) {
         LG(INFO, "%s %.3f %.3f %.3f", message, coords[0], coords[1], coords[2]);
     }
-        
+
 }
