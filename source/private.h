@@ -6,7 +6,9 @@
 
 #ifdef _WIN32
 #include <process.h>
-#define NOMINMAX
+#  ifndef NOMINMAX
+#    define NOMINMAX
+#  endif
 #include <Windows.h>
 #include "dbghelp.h"
 #pragma comment(lib, "Dbghelp.lib")
